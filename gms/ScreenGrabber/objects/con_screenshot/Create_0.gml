@@ -32,3 +32,35 @@ Draw = function()
 	var _colour = merge_color(c_white, $560005, screenFade);
 	draw_surface_ext(screenSurface, 0, 0, 1, 1, 0, _colour, 1);
 }
+
+SaveScreenshot = function()
+{
+	var _rect, _width, _height;
+	with (con_cursor)
+	{
+		_rect	= rectangle.Get();
+		_width	= rectangle.GetWidth();
+		_height	= rectangle.GetHeight();
+	}
+	
+	if ((_width <= 0) || (_height <= 0))
+	{
+		show_message("Screenshot dimensions cannot be 0 pixels or less.")
+		return;
+	}
+
+	var _shotSurface = surface_create(_width, _height);
+
+	surface_set_target(_shotSurface);
+		draw_surface(screenSurface, -_rect.x1, -_rect.y1);
+	surface_reset_target();
+
+	var _filename = "D:\\Dev\\__ScreenGrabber\\Screenshots\\" + "ss.png";
+
+	surface_save(_shotSurface, _filename);
+	surface_free(_shotSurface);
+
+	execute_shell("\"post_call.exe\" copy_to_clipboard \"" + _filename + "\"", false);
+
+	game_end();
+}

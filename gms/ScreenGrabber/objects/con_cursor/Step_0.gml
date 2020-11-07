@@ -2,8 +2,11 @@ var _mousePos = [ device_mouse_x_to_gui(0), device_mouse_y_to_gui(0) ];
 
 if ((mouse_check_button_pressed(mb_left)) && (!dragging))
 {
-	dragging = true;
-	DoDraggingTween(1);
+	if (!dragging)
+	{
+		dragging = true;
+		DoDraggingTween(1);
+	}
 	
 	rectangle.x1 = _mousePos[X];
 	rectangle.y1 = _mousePos[Y];
@@ -11,8 +14,13 @@ if ((mouse_check_button_pressed(mb_left)) && (!dragging))
 
 if (!mouse_check_button(mb_left))
 {
-	dragging = false;
-	DoDraggingTween(0);
+	if (dragging)
+	{
+		dragging = false;
+		DoDraggingTween(0);
+		
+		con_screenshot.SaveScreenshot();
+	}
 	
 	exit;
 }
