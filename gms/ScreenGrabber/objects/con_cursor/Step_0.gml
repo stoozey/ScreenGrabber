@@ -1,11 +1,15 @@
-var _mousePos = [ device_mouse_x_to_gui(0), device_mouse_y_to_gui(0) ];
+var _mousePos = [ mouse_xx, mouse_yy ];
 
 if ((mouse_check_button_pressed(mb_left)) && (!dragging))
 {
 	if (!dragging)
 	{
+		rectangle.Reset();
+		
 		dragging = true;
 		DoDraggingTween(1);
+		
+		con_save_dialog.Deactivate();
 	}
 	
 	rectangle.x1 = _mousePos[X];
@@ -17,9 +21,9 @@ if (!mouse_check_button(mb_left))
 	if (dragging)
 	{
 		dragging = false;
-		DoDraggingTween(0);
+		//DoDraggingTween(0);
 		
-		con_screenshot.SaveScreenshot();
+		con_save_dialog.Activate();
 	}
 	
 	exit;

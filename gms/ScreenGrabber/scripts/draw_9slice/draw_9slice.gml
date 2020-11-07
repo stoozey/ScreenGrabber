@@ -28,7 +28,7 @@ function draw_9slice() {
 	if (argument_count > 7) _scale = argument[7];
 	
 	var _alpha = draw_get_alpha();
-	if (argument_count > 8) _alpha = argument[7];
+	if (argument_count > 8) _alpha = argument[8];
 
 	//Scale if smaller
 	var spriteWidth = sprite_get_width(_sprite);

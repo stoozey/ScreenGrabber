@@ -55,12 +55,12 @@ SaveScreenshot = function()
 		draw_surface(screenSurface, -_rect.x1, -_rect.y1);
 	surface_reset_target();
 
-	var _filename = "D:\\Dev\\__ScreenGrabber\\Screenshots\\" + "ss.png";
-
+	var _filename = (temp_directory + "\\STOOZEY_SCREENGRABBER_SCREENSHOT.png");
 	surface_save(_shotSurface, _filename);
 	surface_free(_shotSurface);
-
-	execute_shell("\"post_call.exe\" copy_to_clipboard \"" + _filename + "\"", false);
-
-	game_end();
+	
+	with (con_save_dialog)
+	{
+		dialogActions[selectedAction](_filename);
+	}
 }

@@ -31,6 +31,14 @@ rectangle =
 		variable_struct_set(self, _aName, _a);
 		variable_struct_set(self, _bName, _b);
 	},
+	
+	Reset: function()
+	{
+		self.x1	= 0;
+		self.x2	= 0;
+		self.y1	= 0;
+		self.y2	= 0;
+	}
 };
 
 #macro CON_CURSOR_DRAGGING_BACKGROUND_ALPHA	0.5
@@ -49,5 +57,5 @@ DoDraggingTween = function(_alpha)
 	if (TweenExists(draggingTween))
 		TweenDestroy(draggingTween);
 	
-	draggingTween = TweenFire(id, EaseOutQuart, TWEEN_MODE_ONCE, true, 0, 0.2, "draggingAlpha", -_alpha, _alpha);
+	draggingTween = TweenFire(id, EaseOutQuart, TWEEN_MODE_ONCE, true, 0, 0.2, "draggingAlpha", !_alpha, _alpha);
 }
