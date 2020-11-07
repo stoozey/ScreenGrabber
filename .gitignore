@@ -1,3 +1,9 @@
 cs/post_call/.idea/**
 cs/post_call/bin/**
 cs/post_call/obj/**
+cs/post_call/post_call/bin/Debug/post_call.exe
+cs/post_call/post_call/bin/Debug/post_call.pdb
+cs/post_call/post_call/obj/Debug/post_call.csproj.FileListAbsolute.txt
+cs/post_call/post_call/obj/Debug/post_call.csprojAssemblyReference.cache
+cs/post_call/post_call/obj/Debug/post_call.exe
+cs/post_call/post_call/obj/Debug/post_call.pdb
