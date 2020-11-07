@@ -9,14 +9,14 @@ namespace post_call
 {
 	internal static class Program
 	{
-		
-		
 		[STAThread]
 		public static void Main(string[] _args)
 		{
 			var config = new ConfigurationBuilder<IConfig>()
 				.UseIniFile($@"{Directory.GetCurrentDirectory()}\config.json")
 				.Build();
+			
+			Console.WriteLine(config.ImgurClientId);
 			
 			switch (_args[0])
 			{

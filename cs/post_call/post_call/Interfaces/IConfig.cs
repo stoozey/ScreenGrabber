@@ -1,8 +1,11 @@
-﻿namespace post_call.Interfaces
+﻿using Config.Net;
+
+namespace post_call.Interfaces
 {
 	public interface IConfig
 	{
-		string api_imgur_client_id { get; }
+		[Option(Alias = "api_imgur_client_id")]
+		string ImgurClientId { get; }
 		//string api_imgur_client_secret { get; }
 	}
 }
