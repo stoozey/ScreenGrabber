@@ -1,5 +1,0 @@
-D:\Dev\__ScreenGrabber\source\cs\post_call\post_call\bin\Debug\post_call.exe
-D:\Dev\__ScreenGrabber\source\cs\post_call\post_call\bin\Debug\post_call.pdb
-D:\Dev\__ScreenGrabber\source\cs\post_call\post_call\obj\Debug\post_call.csprojAssemblyReference.cache
-D:\Dev\__ScreenGrabber\source\cs\post_call\post_call\obj\Debug\post_call.exe
-D:\Dev\__ScreenGrabber\source\cs\post_call\post_call\obj\Debug\post_call.pdb
