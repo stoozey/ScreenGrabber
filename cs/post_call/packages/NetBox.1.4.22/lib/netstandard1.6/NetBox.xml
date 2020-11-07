@@ -1,0 +1,1842 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NetBox</name>
+    </assembly>
+    <members>
+        <member name="T:NetBox.Application.Ascii85">
+            <summary>
+            C# implementation of ASCII85 encoding. 
+            Based on C code from http://www.stillhq.com/cgi-bin/cvsweb/ascii85/
+            </summary>
+            <remarks>
+            Jeff Atwood
+            http://www.codinghorror.com/blog/archives/000410.html
+            </remarks>
+        </member>
+        <member name="F:NetBox.Application.Ascii85.PrefixMark">
+            <summary>
+            Prefix mark that identifies an encoded ASCII85 string
+            </summary>
+        </member>
+        <member name="F:NetBox.Application.Ascii85.SuffixMark">
+            <summary>
+            Suffix mark that identifies an encoded ASCII85 string
+            </summary>
+        </member>
+        <member name="F:NetBox.Application.Ascii85.LineLength">
+            <summary>
+            Maximum line length for encoded ASCII85 string; 
+            set to zero for one unbroken line.
+            </summary>
+        </member>
+        <member name="M:NetBox.Application.Ascii85.Decode(System.String,System.Boolean)">
+            <summary>
+            Decodes an ASCII85 encoded string into the original binary data
+            </summary>
+            <param name="s">ASCII85 encoded string</param>
+            <param name="enforceMarks">enforce marks</param>
+            <returns>byte array of decoded binary data</returns>
+        </member>
+        <member name="M:NetBox.Application.Ascii85.Encode(System.Byte[],System.Boolean)">
+            <summary>
+            Encodes binary data into a plaintext ASCII85 format string
+            </summary>
+            <param name="ba">binary data to encode</param>
+            <param name="enforceMarks">enforce marks</param>
+            <returns>ASCII85 encoded string</returns>
+        </member>
+        <member name="F:NetBox.Application.ByteFormat.Standard.Si">
+            <summary>
+             International System of Units
+            </summary>
+        </member>
+        <member name="F:NetBox.Application.ByteFormat.Standard.Iec">
+            <summary>
+            International Electrotechnical Commission
+            </summary>
+        </member>
+        <member name="M:NetBox.Application.ByteFormat.ToString(System.Int64,NetBox.Application.ByteFormat.Standard)">
+            <summary>
+            Returns the best formatted string representation of a byte value
+            </summary>
+            <param name="bytes">number of bytes</param>
+            <param name="st"></param>
+            <returns>formatted string</returns>
+        </member>
+        <member name="M:NetBox.Application.ByteFormat.ToString(System.Int64,NetBox.Application.ByteFormat.Standard,System.String)">
+            <summary>
+            Returns the best formatted string representation of a byte value
+            </summary>
+            <param name="bytes">number of bytes</param>
+            <param name="st"></param>
+            <param name="customFormat">Defines a custom numerical format for the conversion.
+            If this parameters is null or empty the default format will be used 0.00</param>
+            <returns>formatted string</returns>
+        </member>
+        <member name="T:NetBox.Application.WebUtility">
+            <summary>
+            This class is ported from .NET 4.6 to support URL encoding/decoding functionality which is missing in .NET Standard
+            </summary>
+        </member>
+        <member name="T:NetBox.Caching.LazyVar`1">
+            <summary>
+            Implements a lazy value i.e. that can expire in future
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:NetBox.Caching.LazyVar`1.#ctor(System.TimeSpan,System.Func{System.Threading.Tasks.Task{`0}})">
+            <summary>
+            Creates an instance of a lazy variable with time-to-live value
+            </summary>
+            <param name="timeToLive">Time to live</param>
+            <param name="renewFunc"></param>
+        </member>
+        <member name="M:NetBox.Caching.LazyVar`1.GetValueAsync">
+            <summary>
+            Gets the values, renewing it if necessary
+            </summary>
+            <returns>Value</returns>
+        </member>
+        <member name="T:NetBox.Collections.ObjectPool`1">
+            <summary>
+            Implement an object pool which allows object to be reusable and cached for a specific amount of time.
+            This class is thread safe.
+            </summary>
+            <typeparam name="T">Type of object to be pooled</typeparam>
+        </member>
+        <member name="M:NetBox.Collections.ObjectPool`1.#ctor(System.Func{`0},System.Action{`0},System.Int32,System.TimeSpan)">
+            <summary>
+            
+            </summary>
+            <param name="createFunction">
+            A function responsible for creating new instances of an object. It must  return a new instance every
+            time and is required. You should not use any form of instance caching.</param>
+            <param name="destroyFunction">
+            When specified is called on the object instance. You are responsible for a proper cleanup as object
+            pool only removes it from internal instance collection.</param>
+            <param name="capacity">
+            Maximum capacity of this pool specifying how many instances the pool
+            can hold as a maximum.
+            </param>
+            <param name="maxAge">
+            Specifies how long the object can live. When object is used for more than this time it's destroyed
+            by removing from internal cache and calling the destroy function when specified.
+            </param>
+        </member>
+        <member name="M:NetBox.Collections.ObjectPool`1.GetInstance">
+            <summary>
+            Gets an available instance from the object pool by creating a new one, reusing existing one,
+            or waiting for an available one.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:NetBox.Collections.ObjectPool`1.HasFreeInstance">
+            <summary>
+            Returns true if object pool has instances in the cache which have not been used yet.
+            </summary>
+        </member>
+        <member name="P:NetBox.Collections.ObjectPool`1.InstanceCount">
+            <summary>
+            Returns the number of instances in use
+            </summary>
+        </member>
+        <member name="M:NetBox.Collections.ObjectPool`1.ReleaseInstance(`0)">
+            <summary>
+            Returns instance to the object pool so it can be reused
+            </summary>
+            <param name="instance"></param>
+        </member>
+        <member name="M:NetBox.Collections.ObjectPool`1.Dispose">
+            <summary>
+            Releases all object instances and calls the destroy function on each of them if you have specified one.
+            </summary>
+        </member>
+        <member name="T:NetBox.DynamicValue">
+            <summary>
+            Represents a primitive value which can be constructed from anything and converted to anything.
+            "Anything" is to the best effort and will be extended constantly.
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.#ctor(System.Object)">
+            <summary>
+            Constructs an instance of DynamicValue
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="P:NetBox.DynamicValue.OriginalValue">
+            <summary>
+            Original value
+            </summary>
+        </member>
+        <member name="P:NetBox.DynamicValue.OriginalType">
+            <summary>
+            Original type
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.GetValue(System.Type)">
+            <summary>
+            Gets value of specified type
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NetBox.DynamicValue.GetValue``1">
+            <summary>
+            Gets value of specified type
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(NetBox.DynamicValue)~System.Int32">
+            <summary>
+            Implicitly converts to int data type
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(System.Int32)~NetBox.DynamicValue">
+            <summary>
+            Implicitly converts from int to an instance of DynamicValue
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(NetBox.DynamicValue)~System.UInt32">
+            <summary>
+            Implicitly converts to uint data type
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(System.UInt32)~NetBox.DynamicValue">
+            <summary>
+            Implicitly converts from uint to an instance of DynamicValue
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(NetBox.DynamicValue)~System.Int64">
+            <summary>
+            Implicitly converts to long data type
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(System.Int64)~NetBox.DynamicValue">
+            <summary>
+            Implicitly converts from long to an instance of DynamicValue
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(NetBox.DynamicValue)~System.UInt64">
+            <summary>
+            Implicitly converts to ulong data type
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(System.UInt64)~NetBox.DynamicValue">
+            <summary>
+            Implicitly converts from ulong to an instance of DynamicValue
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(NetBox.DynamicValue)~System.Double">
+            <summary>
+            Implicitly converts to double data type
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(System.Double)~NetBox.DynamicValue">
+            <summary>
+            Implicitly converts from double to an instance of DynamicValue
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(NetBox.DynamicValue)~System.Guid">
+            <summary>
+            Implicitly converts to Guid data type
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(System.Guid)~NetBox.DynamicValue">
+            <summary>
+            Implicitly converts from Guid to an instance of DynamicValue
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(NetBox.DynamicValue)~System.DateTime">
+            <summary>
+            Implicitly converts to DateTime data type
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(System.DateTime)~NetBox.DynamicValue">
+            <summary>
+            Implicitly converts from DateTime to an instance of DynamicValue
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(NetBox.DynamicValue)~System.DateTimeOffset">
+            <summary>
+            Implicitly converts to DateTimeOffset data type
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(System.DateTimeOffset)~NetBox.DynamicValue">
+            <summary>
+            Implicitly converts from DateTimeOffset to an instance of DynamicValue
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(NetBox.DynamicValue)~System.String">
+            <summary>
+            Implicitly converts to string data type
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(System.String)~NetBox.DynamicValue">
+            <summary>
+            Implicitly converts from string to an instance of DynamicValue
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(NetBox.DynamicValue)~System.Byte[]">
+            <summary>
+            Implicitly converts to byte[] data type
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(System.Byte[])~NetBox.DynamicValue">
+            <summary>
+            Implicitly converts from byte[] to an instance of DynamicValue
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(NetBox.DynamicValue)~System.Boolean">
+            <summary>
+            Implicitly converts to bool data type
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(System.Boolean)~NetBox.DynamicValue">
+            <summary>
+            Implicitly converts from bool to an instance of DynamicValue
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(NetBox.DynamicValue)~System.Byte">
+            <summary>
+            Implicitly converts to byte data type
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(System.Byte)~NetBox.DynamicValue">
+            <summary>
+            Implicitly converts from byte to an instance of DynamicValue
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(NetBox.DynamicValue)~System.SByte">
+            <summary>
+            Implicitly converts to sbyte data type
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(System.SByte)~NetBox.DynamicValue">
+            <summary>
+            Implicitly converts from sbyte to an instance of DynamicValue
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(NetBox.DynamicValue)~System.Char">
+            <summary>
+            Implicitly converts to char data type
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(System.Char)~NetBox.DynamicValue">
+            <summary>
+            Implicitly converts from char to an instance of DynamicValue
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(NetBox.DynamicValue)~System.Decimal">
+            <summary>
+            Implicitly converts to decimal data type
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(System.Decimal)~NetBox.DynamicValue">
+            <summary>
+            Implicitly converts from decimal to an instance of DynamicValue
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(NetBox.DynamicValue)~System.Single">
+            <summary>
+            Implicitly converts to float data type
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(System.Single)~NetBox.DynamicValue">
+            <summary>
+            Implicitly converts from float to an instance of DynamicValue
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(NetBox.DynamicValue)~System.Int16">
+            <summary>
+            Implicitly converts to short data type
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(System.Int16)~NetBox.DynamicValue">
+            <summary>
+            Implicitly converts from short to an instance of DynamicValue
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(NetBox.DynamicValue)~System.UInt16">
+            <summary>
+            Implicitly converts to ushort data type
+            </summary>
+        </member>
+        <member name="M:NetBox.DynamicValue.op_Implicit(System.UInt16)~NetBox.DynamicValue">
+            <summary>
+            Implicitly converts from ushort to an instance of DynamicValue
+            </summary>
+        </member>
+        <member name="M:NetBox.FileFormats.CsvFormat.EscapeValue(System.String)">
+            <summary>
+            Implemented according to RFC4180 http://tools.ietf.org/html/rfc4180
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NetBox.FileFormats.CsvReader">
+            <summary>
+            Reads data from a CSV file. Fast and reliable, supports:
+            - newline characters
+            - double quotes
+            - commas
+            </summary>
+        </member>
+        <member name="M:NetBox.FileFormats.CsvReader.#ctor(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Creates an instance from an open stream and encoding
+            </summary>
+        </member>
+        <member name="M:NetBox.FileFormats.CsvReader.ReadAllFromContent(System.String,System.Boolean)">
+            <summary>
+            Reads all file as a dictionary of column name to list of values
+            </summary>
+            <param name="content">File content</param>
+            <param name="hasColumns">When true, the first line of the file includes columns</param>
+            <returns>Dictionary mapping the column name to the list of values</returns>
+        </member>
+        <member name="M:NetBox.FileFormats.CsvReader.ReadNextRow">
+            <summary>
+            Reads next row of data if available.
+            </summary>
+            <returns>Null when end of file is reached, or array of strings for each column.</returns>
+        </member>
+        <member name="T:NetBox.FileFormats.CsvWriter">
+            <summary>
+            Writes data to a CSV file. Fast and reliable, supports:
+            - newline characters
+            - double quotes
+            - commas
+            </summary>
+        </member>
+        <member name="M:NetBox.FileFormats.CsvWriter.#ctor(System.IO.Stream)">
+            <summary>
+            Creates a new instance of CsvWriter which uses UTF8 encoding
+            </summary>
+            <param name="destination"></param>
+        </member>
+        <member name="M:NetBox.FileFormats.CsvWriter.#ctor(System.String)">
+            <summary>
+            Creates a new instance of CsvWriter on disk with UTF8 encoding
+            </summary>
+            <param name="fileName">File name or path</param>
+        </member>
+        <member name="M:NetBox.FileFormats.CsvWriter.#ctor(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Creates a new instance of CsvWriter and allows to specify the writer encoding
+            </summary>
+            <param name="destination"></param>
+            <param name="encoding"></param>
+        </member>
+        <member name="M:NetBox.FileFormats.CsvWriter.Write(System.String[])">
+            <summary>
+            Writes a row of data
+            </summary>
+        </member>
+        <member name="M:NetBox.FileFormats.CsvWriter.Write(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Writes a row of data
+            </summary>
+        </member>
+        <member name="T:NetBox.G">
+            <summary>
+            Global defaults
+            </summary>
+        </member>
+        <member name="F:NetBox.G.Enc">
+            <summary>
+            Global default encoding
+            </summary>
+        </member>
+        <member name="F:NetBox.G.C">
+            <summary>
+            Global default culture
+            </summary>
+        </member>
+        <member name="T:NetBox.Generator">
+            <summary>
+            Generates random data using <see cref="T:System.Security.Cryptography.RandomNumberGenerator"/> for increased security
+            </summary>
+        </member>
+        <member name="P:NetBox.Generator.RandomBool">
+            <summary>
+            Generates a random boolean
+            </summary>
+        </member>
+        <member name="P:NetBox.Generator.RandomLong">
+            <summary>
+            Generates a random long number between 0 and max
+            </summary>
+        </member>
+        <member name="P:NetBox.Generator.RandomInt">
+            <summary>
+            Generates a random integer between 0 and max
+            </summary>
+        </member>
+        <member name="P:NetBox.Generator.RandomDouble">
+            <summary>
+            Returns random double
+            </summary>
+        </member>
+        <member name="M:NetBox.Generator.GetRandomInt(System.Int32)">
+            <summary>
+            Generates a random integer until max parameter
+            </summary>
+            <param name="max">Maximum integer value, excluding</param>
+            <returns></returns>
+        </member>
+        <member name="M:NetBox.Generator.GetRandomInt(System.Int32,System.Int32)">
+            <summary>
+            Generates a random integer number in range
+            </summary>
+            <param name="min">Minimum value, including</param>
+            <param name="max">Maximum value, excluding</param>
+        </member>
+        <member name="M:NetBox.Generator.GetRandomLong(System.Int64,System.Int64)">
+            <summary>
+            Generates a random long number in range
+            </summary>
+            <param name="min">Minimum value, including</param>
+            <param name="max">Maximum value, excluding</param>
+        </member>
+        <member name="M:NetBox.Generator.RandomEnum(System.Type)">
+            <summary>
+            Generates a random enum value by type
+            </summary>
+        </member>
+        <member name="M:NetBox.Generator.GetRandomDate(System.DateTime,System.DateTime)">
+            <summary>
+            Generates a random date in range
+            </summary>
+            <param name="minValue">Minimum date, including</param>
+            <param name="maxValue">Maximum date, excluding</param>
+        </member>
+        <member name="P:NetBox.Generator.RandomDate">
+            <summary>
+            Generates a random date value
+            </summary>
+        </member>
+        <member name="P:NetBox.Generator.RandomString">
+            <summary>
+            Generates a random string. Never returns null.
+            </summary>
+        </member>
+        <member name="M:NetBox.Generator.GetRandomString(System.Int32,System.Boolean)">
+            <summary>
+            Generates a random string
+            </summary>
+            <param name="length">string length</param>
+            <param name="allowNulls">Whether to allow to return null values</param>
+        </member>
+        <member name="M:NetBox.Generator.GetRandomUri(System.Boolean)">
+            <summary>
+            Generates a random URL in format "http://random.com/random.random
+            </summary>
+            <param name="allowNulls">Whether to allow to return nulls</param>
+        </member>
+        <member name="P:NetBox.Generator.RandomUri">
+            <summary>
+            Generates a random URL in format "http://random.com/random.random. Never returns null values.
+            </summary>
+        </member>
+        <member name="M:NetBox.Generator.GetRandomBytes(System.Int32,System.Int32)">
+            <summary>
+            Generates a random sequence of bytes of a specified size
+            </summary>
+        </member>
+        <member name="T:NetBox.IO.BoundedStream">
+            <summary>
+            Works on top of a subportion of a stream, making only a small window visible
+            </summary>
+        </member>
+        <member name="T:NetBox.IO.DelegatedStream">
+            <summary>
+            Makes stream members virtual instead of abstract, allowing to override only specific behaviors.
+            </summary>
+        </member>
+        <member name="M:NetBox.IO.DelegatedStream.#ctor(System.IO.Stream)">
+            <summary>
+            Creates an instance of non-closeable stream
+            </summary>
+            <param name="master"></param>
+        </member>
+        <member name="P:NetBox.IO.DelegatedStream.CanRead">
+            <summary>
+            Calls <see cref="M:NetBox.IO.DelegatedStream.GetCanRead"/>
+            </summary>
+        </member>
+        <member name="M:NetBox.IO.DelegatedStream.GetCanRead">
+            <summary>
+            Delegates to master by default
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:NetBox.IO.DelegatedStream.CanSeek">
+            <summary>
+            Calls <see cref="M:NetBox.IO.DelegatedStream.GetCanSeek"/>
+            </summary>
+        </member>
+        <member name="M:NetBox.IO.DelegatedStream.GetCanSeek">
+            <summary>
+            Delegates to master by default
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:NetBox.IO.DelegatedStream.CanWrite">
+            <summary>
+            Calls <see cref="M:NetBox.IO.DelegatedStream.GetCanWrite"/>
+            </summary>
+        </member>
+        <member name="M:NetBox.IO.DelegatedStream.GetCanWrite">
+            <summary>
+            Delegates to master by default
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:NetBox.IO.DelegatedStream.Length">
+            <summary>
+            Calls <see cref="M:NetBox.IO.DelegatedStream.GetLength"/>
+            </summary>
+        </member>
+        <member name="M:NetBox.IO.DelegatedStream.GetLength">
+            <summary>
+            Delegates to master by default
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:NetBox.IO.DelegatedStream.Position">
+            <summary>
+            Delegates to master by default
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NetBox.IO.DelegatedStream.Flush">
+            <summary>
+            Delegates to master by default
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NetBox.IO.DelegatedStream.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Delegates to master by default
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NetBox.IO.DelegatedStream.Seek(System.Int64,System.IO.SeekOrigin)">
+            <summary>
+            Delegates to master by default
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NetBox.IO.DelegatedStream.SetLength(System.Int64)">
+            <summary>
+            Delegates to master by default
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NetBox.IO.DelegatedStream.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Delegates to master by default
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:NetBox.IO.NonCloseableStream">
+            <summary>
+            Represents a stream that ignores <see cref="T:System.IDisposable"/> operations i.e. cannot be closed by the client
+            </summary>
+        </member>
+        <member name="M:NetBox.IO.NonCloseableStream.#ctor(System.IO.Stream)">
+            <summary>
+            Creates an instance of this class
+            </summary>
+            <param name="master">Master stream to delegate operations to</param>
+        </member>
+        <member name="M:NetBox.IO.NonCloseableStream.Dispose(System.Boolean)">
+            <summary>
+            Overrides this call to do nothing
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="T:NetBox.Json">
+            <summary>
+            Common JavaScript helpers
+            </summary>
+        </member>
+        <member name="M:NetBox.Json.ToEscapedString(System.String)">
+            <summary>
+            Escapes a string for JSON encoding
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NetBox.Json.Flatten(System.String,System.Boolean)">
+            <summary>
+            Flattens JSON document i.e. transorms to a key-value object.
+            </summary>
+            <param name="jsonDocument"></param>
+            <param name="compress">When true, generates a compressed JSON document (one line, no formatting)</param>
+            <example>
+            The following document@
+            
+            {
+              "p1": "v1",
+              "obj":
+              {
+                 "p2" : "v2",
+                 "p3" : "v3",
+                 "obj1" :
+                 {
+                    "p4": 4
+                 }
+              }
+            }
+            
+            is flattened into
+            
+            {
+              "p1": "v1",
+              "obj.p2": "v2",
+              "obj.p3": "v3",
+              "obj.obj1.p4": 4
+            }
+            </example>
+            <returns></returns>
+        </member>
+        <member name="T:NetBox.Measure">
+            <summary>
+            Measures a time slice as precisely as possible
+            </summary>
+        </member>
+        <member name="M:NetBox.Measure.#ctor">
+            <summary>
+            Creates the measure object
+            </summary>
+        </member>
+        <member name="P:NetBox.Measure.ElapsedTicks">
+            <summary>
+            Returns number of elapsed ticks since the start of measure.
+            The measuring process will continue running.
+            </summary>
+        </member>
+        <member name="P:NetBox.Measure.ElapsedMilliseconds">
+            <summary>
+            Returns number of elapsed milliseconds since the start of measure.
+            The measuring process will continue running.
+            </summary>
+        </member>
+        <member name="M:NetBox.Measure.Dispose">
+            <summary>
+            Stops measure object if still running
+            </summary>
+        </member>
+        <member name="T:NetBox.Model.EnumTagAttribute">
+            <summary>
+            Tags enums for assigning extra data such as alternative ID, Description etc.
+            </summary>
+        </member>
+        <member name="P:NetBox.Model.EnumTagAttribute.Id">
+            <summary>
+            Alternative string version of ID
+            </summary>
+        </member>
+        <member name="P:NetBox.Model.EnumTagAttribute.DisplayName">
+            <summary>
+            Display name
+            </summary>
+        </member>
+        <member name="M:NetBox.Model.EnumTagAttribute.#ctor">
+            <summary>
+            Creates an instance
+            </summary>
+        </member>
+        <member name="M:NetBox.Model.EnumTagAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Creates an instance
+            </summary>
+            <param name="id">Alternative string version of ID</param>
+            <param name="displayName">Display name</param>
+        </member>
+        <member name="T:NetBox.NameGenerator">
+            <summary>
+            Interesting name generator utilities
+            </summary>
+        </member>
+        <member name="M:NetBox.NameGenerator.GenerateDockerStyleName">
+            <summary>
+            Generates sub-random name in docker style, the source code for this is migrated from
+            https://raw.githubusercontent.com/docker/docker/master/pkg/namesgenerator/names-generator.go
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NetBox.NameGenerator.GeneratePersonFirstName">
+            <summary>
+            Generates a random person first name from an embedded database of over 5'000 first names
+            </summary>
+        </member>
+        <member name="M:NetBox.NameGenerator.GeneratePersonLastName">
+            <summary>
+            Generates a random person last name from an embedded database of over 8'000 last names
+            </summary>
+        </member>
+        <member name="M:NetBox.NameGenerator.GeneratePersonFullName">
+            <summary>
+            Generates a random person name in the format of FirstName LastName
+            </summary>
+        </member>
+        <member name="T:NetBox.PasswordGenerator">
+            <summary>
+            Generates random passwords
+            </summary>
+        </member>
+        <member name="M:NetBox.PasswordGenerator.Generate">
+            <summary>
+            Generates a random password using default password policy
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NetBox.PasswordGenerator.Generate(NetBox.PasswordPolicy)">
+            <summary>
+            Generates a random password.
+            </summary>
+            <param name="policy">
+            Password generation policy
+            </param>
+            <returns>
+            Randomly generated password.
+            </returns>
+            <remarks>
+            The length of the generated password will be determined at
+            random and it will fall with the range determined by the
+            function parameters.
+            </remarks>
+        </member>
+        <member name="T:NetBox.PasswordPolicy">
+            <summary>
+            Password policy used by <see cref="T:NetBox.PasswordGenerator"/>
+            </summary>
+        </member>
+        <member name="M:NetBox.PasswordPolicy.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Constructs an intance
+            </summary>
+            <param name="minLength"></param>
+            <param name="maxLength"></param>
+        </member>
+        <member name="P:NetBox.PasswordPolicy.MinLength">
+            <summary>
+            Minimum length of the password
+            </summary>
+        </member>
+        <member name="P:NetBox.PasswordPolicy.MaxLength">
+            <summary>
+            Maximum length of the password
+            </summary>
+        </member>
+        <member name="P:NetBox.PasswordPolicy.LowercaseCharacters">
+            <summary>
+            List of allowed lowercase characters
+            </summary>
+        </member>
+        <member name="P:NetBox.PasswordPolicy.UppercaseCharacters">
+            <summary>
+            List of allowed uppercase characters
+            </summary>
+        </member>
+        <member name="P:NetBox.PasswordPolicy.NumericCharacters">
+            <summary>
+            List of allowed numeric characters
+            </summary>
+        </member>
+        <member name="P:NetBox.PasswordPolicy.SpecialCharacters">
+            <summary>
+            List of allowed special characters
+            </summary>
+        </member>
+        <member name="T:NetBox.Serialization.Core.Node">
+            <summary>
+            Node metainformation including sibling types
+            </summary>
+        </member>
+        <member name="P:NetBox.Serialization.Core.Node.Name">
+            <summary>
+            Name of the node, null for root node
+            </summary>
+        </member>
+        <member name="P:NetBox.Serialization.Core.Node.RawType">
+            <summary>
+            The raw type of this node
+            </summary>
+        </member>
+        <member name="P:NetBox.Serialization.Core.Node.NodeType">
+            <summary>
+            Type of the node
+            </summary>
+        </member>
+        <member name="P:NetBox.Serialization.Core.Node.Level">
+            <summary>
+            Tree level, 0 for root node
+            </summary>
+        </member>
+        <member name="P:NetBox.Serialization.Core.Node.Parent">
+            <summary>
+            Parent node, null for the root node
+            </summary>
+        </member>
+        <member name="P:NetBox.Serialization.Core.Node.Children">
+            <summary>
+            Child nodes
+            </summary>
+        </member>
+        <member name="M:NetBox.Serialization.Core.Node.#ctor(System.Type)">
+            <summary>
+            Creates an instance of the node and discovers all the metadata
+            </summary>
+            <param name="t">Node type</param>
+        </member>
+        <member name="M:NetBox.Serialization.Core.Node.GetValue(System.Object)">
+            <summary>
+            Gets the value of this node on a particular instance
+            </summary>
+            <param name="instance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NetBox.Serialization.Core.Node.SetValue(System.Object,System.Object)">
+            <summary>
+            Sets the value of this node for a particular instance
+            </summary>
+            <param name="instance"></param>
+            <param name="value"></param>
+        </member>
+        <member name="T:NetBox.Serialization.Core.NodeType">
+            <summary>
+            Type of the node
+            </summary>
+        </member>
+        <member name="F:NetBox.Serialization.Core.NodeType.Simple">
+            <summary>
+            Simple node that has no children and just a primitive value
+            </summary>
+        </member>
+        <member name="F:NetBox.Serialization.Core.NodeType.Container">
+            <summary>
+            A container node for other nodes
+            </summary>
+        </member>
+        <member name="F:NetBox.Serialization.Core.NodeType.Collection">
+            <summary>
+            A collection
+            </summary>
+        </member>
+        <member name="F:NetBox.Serialization.Core.NodeType.NotSupported">
+            <summary>
+            The node belongs to the type but it's too complex and is not supported. Examples are:
+            - multidimensional arrays
+            </summary>
+        </member>
+        <member name="T:NetBox.Serialization.DictionarySerializer">
+            <summary>
+            Serializes objects into dictionary. This class is still in development!
+            </summary>
+        </member>
+        <member name="M:NetBox.Serialization.DictionarySerializer.Serialize(System.Object)">
+            <summary>
+            Serializes instance into a dictionary
+            </summary>
+            <param name="instance"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NetBox.Serialization.DictionarySerializer.Deserialize(System.Type,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Deserializes a type from dictionary data
+            </summary>
+            <param name="t">The type to deserialize</param>
+            <param name="data">The dictionary data</param>
+            <returns></returns>
+        </member>
+        <member name="M:NetBox.Serialization.DictionarySerializer.SerializeValue(NetBox.Serialization.Core.Node,System.Object,System.Object)">
+            <summary>
+            Puts value into intermediate dictionary
+            </summary>
+            <param name="node">Working node</param>
+            <param name="value">Value to put</param>
+            <param name="state">Serializer state which is a current container</param>
+        </member>
+        <member name="M:NetBox.Serialization.DictionarySerializer.DeserializeValue(NetBox.Serialization.Core.Node,System.Object)">
+            <summary>
+            Deserializes the value from current state container by fetching by key
+            </summary>
+            <param name="node">Current node</param>
+            <param name="state">Current state which is a dictionary for current node</param>
+            <returns></returns>
+        </member>
+        <member name="M:NetBox.Serialization.DictionarySerializer.BeforeContainerSerialize(NetBox.Serialization.Core.Node,System.Object,System.Object,System.Object@)">
+            <summary>
+            Creates a new sub-dictionary in the primary dictionary
+            </summary>
+        </member>
+        <member name="M:NetBox.Serialization.DictionarySerializer.BeforeContainerDeserialize(NetBox.Serialization.Core.Node,System.Object,System.Object,System.Object@)">
+            <summary>
+            Changes state into a sub-dictionary
+            </summary>
+        </member>
+        <member name="T:NetBox.Serialization.JsonSerializer">
+            <summary>
+            JSON serializer implemented according to specs at http://www.json.org/. The class is based on
+            <see cref="T:NetBox.Serialization.WalkingSerializer"/>. Not ready for production use yet!
+            </summary>
+        </member>
+        <member name="M:NetBox.Serialization.JsonSerializer.Serialize(System.Object,System.IO.Stream)">
+            <summary>
+            Serializes into stream as JSON
+            </summary>
+        </member>
+        <member name="M:NetBox.Serialization.JsonSerializer.SerializeValue(NetBox.Serialization.Core.Node,System.Object,System.Object)">
+            <summary>
+            Puts the value to the stream according to JSON specs
+            </summary>
+        </member>
+        <member name="M:NetBox.Serialization.JsonSerializer.BeforeContainerSerialize(NetBox.Serialization.Core.Node,System.Object,System.Object,System.Object@)">
+            <summary>
+            Writes the beginning of container ({)
+            </summary>
+        </member>
+        <member name="M:NetBox.Serialization.JsonSerializer.AfterContainerSerialize(NetBox.Serialization.Core.Node,System.Object,System.Object)">
+            <summary>
+            Writed the end of container (})
+            </summary>
+        </member>
+        <member name="T:NetBox.Serialization.TopLevelDictionarySerializer">
+            <summary>
+            Serializes only the first level of class properties i.e. the simple ones.
+            Complex properties are serialized as JSON strings.
+            </summary>
+        </member>
+        <member name="M:NetBox.Serialization.TopLevelDictionarySerializer.Serialize(System.Object)">
+            <summary>
+            Serializes top-level properties
+            </summary>
+            <param name="instance">Object instance</param>
+            <returns>Map of property name to property value, where complex properties are represented as json strings</returns>
+        </member>
+        <member name="M:NetBox.Serialization.TopLevelDictionarySerializer.Deserialize(System.Type,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Deserializes object map
+            </summary>
+        </member>
+        <member name="M:NetBox.Serialization.TopLevelDictionarySerializer.SerializeValue(NetBox.Serialization.Core.Node,System.Object,System.Object)">
+            <summary>
+            Puts property into the dictionary
+            </summary>
+        </member>
+        <member name="M:NetBox.Serialization.TopLevelDictionarySerializer.BeforeContainerSerialize(NetBox.Serialization.Core.Node,System.Object,System.Object,System.Object@)">
+            <summary>
+            Puts the whole complex object into the dictionary as json string
+            </summary>
+        </member>
+        <member name="M:NetBox.Serialization.TopLevelDictionarySerializer.DeserializeValue(NetBox.Serialization.Core.Node,System.Object)">
+            <summary>
+            Puts dictionary property back to the object
+            </summary>
+        </member>
+        <member name="M:NetBox.Serialization.TopLevelDictionarySerializer.BeforeContainerDeserialize(NetBox.Serialization.Core.Node,System.Object,System.Object,System.Object@)">
+            <summary>
+            Deserializes JSON into the complex object
+            </summary>
+        </member>
+        <member name="T:NetBox.Serialization.WalkingSerializer">
+            <summary>
+            A base for building class serializers. Performs a function of caching type metadata and calling back to a derived class
+            with a high-level event data. Can't be used on it's own.
+            </summary>
+        </member>
+        <member name="M:NetBox.Serialization.WalkingSerializer.Serialize(System.Object,System.Object)">
+            <summary>
+            Call from derived class to kick off the serialization process
+            </summary>
+            <param name="instance">Object instance to serialize</param>
+            <param name="state">Optional state which will be passed through the chain of protected methods</param>
+        </member>
+        <member name="M:NetBox.Serialization.WalkingSerializer.Deserialize(System.Type,System.Object)">
+            <summary>
+            Deserializes the specified type 
+            </summary>
+            <param name="t">The type to deserialize</param>
+            <param name="state">The state to be used to deserialize the object. Usually it's an object
+            instance but it can be anything your custom serializer needs to do the job.</param>
+            <returns></returns>
+        </member>
+        <member name="M:NetBox.Serialization.WalkingSerializer.SerializeValue(NetBox.Serialization.Core.Node,System.Object,System.Object)">
+            <summary>
+            Called to serialize value
+            </summary>
+            <param name="node"></param>
+            <param name="value"></param>
+            <param name="state"></param>
+        </member>
+        <member name="M:NetBox.Serialization.WalkingSerializer.DeserializeValue(NetBox.Serialization.Core.Node,System.Object)">
+            <summary>
+            Deserializes the value from specified node.
+            </summary>
+            <param name="node">The node to use.</param>
+            <param name="state">The state of the serializer.</param>
+            <returns>Must return node value and in correct type.</returns>
+        </member>
+        <member name="M:NetBox.Serialization.WalkingSerializer.BeforeContainerSerialize(NetBox.Serialization.Core.Node,System.Object,System.Object,System.Object@)">
+            <summary>
+            Called to start container during serialization
+            </summary>
+            <param name="node"></param>
+            <param name="state"></param>
+            <param name="instance"></param>
+            <param name="newState"></param>
+            <returns>When false, won't proceed deep inside the container</returns>
+        </member>
+        <member name="M:NetBox.Serialization.WalkingSerializer.BeforeContainerDeserialize(NetBox.Serialization.Core.Node,System.Object,System.Object,System.Object@)">
+            <summary>
+            Happends before container deserialization
+            </summary>
+            <param name="node">Current node</param>
+            <param name="state">Current state</param>
+            <param name="instance">Container instance</param>
+            <param name="newState">New state to use in next calls</param>
+            <returns>True to proceeed walking down, otherwise false</returns>
+        </member>
+        <member name="M:NetBox.Serialization.WalkingSerializer.AfterContainerSerialize(NetBox.Serialization.Core.Node,System.Object,System.Object)">
+            <summary>
+            Called after container is serialized
+            </summary>
+        </member>
+        <member name="M:NetBox.Serialization.WalkingSerializer.AfterContainerDeserialize(NetBox.Serialization.Core.Node,System.Object,System.Object)">
+            <summary>
+            Called after container is deserialized
+            </summary>
+        </member>
+        <member name="T:System.Reflection.AssemblyExtensions">
+            <summary>
+            <see cref="T:System.Reflection.Assembly"/> extension methods
+            </summary>
+        </member>
+        <member name="M:System.Reflection.AssemblyExtensions.ProductVersion(System.Reflection.Assembly)">
+            <summary>
+            Gets the product version (set by [assembly:Version] attribute)
+            </summary>
+        </member>
+        <member name="M:System.Reflection.AssemblyExtensions.GetSameFolderEmbeddedResourceFile``1(System.Reflection.Assembly,System.String)">
+            <summary>
+            Reads embedded resource file which lies next to a type specified in TTypeNextToFile 
+            </summary>
+            <param name="assembly">Assembly where the resource file resides, usually it's Assembly.GetExecutingAssembly()</param>
+            <param name="fileName">name of the file, i.e. "myresource.txt"</param>
+            <returns>File stream if it exists, otherwise null</returns>
+        </member>
+        <member name="M:System.Reflection.AssemblyExtensions.GetSameFolderEmbeddedResourceFileAsText``1(System.Reflection.Assembly,System.String)">
+            <summary>
+            Reads embedded resource file as text
+            </summary>
+            <typeparam name="TTypeNextToFile">This type must reside in the same folder as resource file</typeparam>
+            <param name="assembly">Assembly where the resource file resides, usually it's Assembly.GetExecutingAssembly()</param>
+            <param name="fileName">name of the file, i.e. "myresource.txt"</param>
+            <returns>File stream if it exists, otherwise null</returns>
+        </member>
+        <member name="M:System.Reflection.AssemblyExtensions.GetSameFolderEmbeddedResourceFileAsLines``1(System.Reflection.Assembly,System.String)">
+            <summary>
+            Reads embedded resource file as array of lines
+            </summary>
+            <typeparam name="TTypeNextToFile">This type must reside in the same folder as resource file</typeparam>
+            <param name="assembly">Assembly where the resource file resides, usually it's Assembly.GetExecutingAssembly()</param>
+            <param name="fileName">name of the file, i.e. "myresource.txt"</param>
+            <returns>File stream if it exists, otherwise null</returns>
+        </member>
+        <member name="M:System.Reflection.AssemblyExtensions.FileVersion(System.Reflection.Assembly)">
+            <summary>
+            Gets the file version (set by [assembly:FileVersion] attribute)
+            </summary>
+            <param name="asm"></param>
+            <returns></returns>
+        </member>
+        <member name="T:System.ByteArrayExtensions">
+            <summary>
+            Byte array extensions methods
+            </summary>
+        </member>
+        <member name="M:System.ByteArrayExtensions.ToHexString(System.Byte[])">
+            <summary>
+            Converts byte array to hexadecimal string
+            </summary>
+        </member>
+        <member name="M:System.ByteArrayExtensions.GetHash(System.Byte[],System.HashType)">
+            <summary>
+            Calculates a hash on byte array
+            </summary>
+        </member>
+        <member name="M:System.ByteArrayExtensions.Gzip(System.Byte[])">
+            <summary>
+            Gzips sequence of bytes
+            </summary>
+        </member>
+        <member name="M:System.ByteArrayExtensions.Ungzip(System.Byte[])">
+            <summary>
+            Ungzips sequence of bytes
+            </summary>
+        </member>
+        <member name="M:System.ByteArrayExtensions.IsGzipped(System.Byte[])">
+            <summary>
+            Checks the beginning of the byte array for a GZIP header
+            </summary>
+        </member>
+        <member name="T:System.CharExtensions">
+            <summary>
+            Char extensions methods
+            </summary>
+        </member>
+        <member name="T:System.DateTimeExtensions">
+            <summary>
+            <see cref="T:System.DateTime"/> extension methods
+            </summary>
+        </member>
+        <member name="M:System.DateTimeExtensions.RoundToDay(System.DateTime)">
+            <summary>
+            Strips time from the date structure
+            </summary>
+        </member>
+        <member name="M:System.DateTimeExtensions.EndOfDay(System.DateTime)">
+            <summary>
+            Changes to the end of day time, i.e. hours, minutes and seconds are changed to 23:59:59
+            </summary>
+            <param name="time"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.DateTimeExtensions.RoundToMinute(System.DateTime,System.Int32,System.Boolean)">
+            <summary>
+            Rounds to the closest minute
+            </summary>
+            <param name="time">Input date</param>
+            <param name="round">Closest minute i.e. 15, 30, 45 etc.</param>
+            <param name="roundLeft">Whether to use minimum or maximum value. For example
+            when time is 13:14 and rounding is to every 15 minutes, when this parameter is true
+            the result it 13:00, otherwise 13:15</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.DateTimeExtensions.RoundToSecond(System.DateTime)">
+            <summary>
+            Strips off details after seconds
+            </summary>
+            <param name="time"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.DateTimeExtensions.IsToday(System.DateTime)">
+            <summary>
+            Returns true if the date is today's date.
+            </summary>
+        </member>
+        <member name="M:System.DateTimeExtensions.IsTomorrow(System.DateTime)">
+            <summary>
+            Returns true if the date is tomorrow's date.
+            </summary>
+        </member>
+        <member name="M:System.DateTimeExtensions.ToHourMinuteString(System.DateTime)">
+            <summary>
+            Returns date in "HH:mm" format
+            </summary>
+        </member>
+        <member name="M:System.DateTimeExtensions.ToIso8601DateString(System.DateTime)">
+            <summary>
+            Formats date in ISO 8601 format
+            </summary>
+        </member>
+        <member name="T:System.Collections.Generic.DictionaryExtensions">
+            <summary>
+            IDictionary extensions
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.DictionaryExtensions.AddRange``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{``0,``1})">
+            <summary>
+            Adds all elements from source to target
+            </summary>
+            <typeparam name="TKey">Key type</typeparam>
+            <typeparam name="TValue">Value type</typeparam>
+            <param name="source">Source dictionary to get the values from</param>
+            <param name="target">Target dictionary to add values to</param>
+        </member>
+        <member name="M:System.Collections.Generic.DictionaryExtensions.GetOrAdd``2(System.Collections.Generic.IDictionary{``0,``1},``0,System.Func{``1})">
+            <summary>
+            Gets element by key if it exists in the dictionary, otherwise calls specifed method to
+            create a new element and adds it back to the dictionary
+            </summary>
+            <typeparam name="TKey">Key type</typeparam>
+            <typeparam name="TValue">Value type</typeparam>
+            <param name="target">Target dictionary</param>
+            <param name="key">Key to search on</param>
+            <param name="createValue">Method used to create a new value</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Collections.Generic.EnumerableEx">
+            <summary>
+            Enumerable extras
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableEx.MultiIterate``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1})">
+            <summary>
+            Iterates over two <see cref="T:System.Collections.IEnumerable"/> until one of them reaches the end of elements
+            </summary>
+            <typeparam name="TFirst">Types of elements in the first sequence</typeparam>
+            <typeparam name="TSecond">Types of elements in the second sequence</typeparam>
+            <param name="first">First sequence</param>
+            <param name="second">Second sequence</param>
+            <returns>Sequence of tuples from the first and second sequences</returns>
+        </member>
+        <member name="T:System.Collections.Generic.EnumerableExtensions">
+            <summary>
+            <see cref="T:System.IEquatable`1"/> extension methods
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableExtensions.Chunk``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>
+            Split sequence in batches of specified size
+            </summary>
+            <typeparam name="T">Element type</typeparam>
+            <param name="source">Enumeration source</param>
+            <param name="chunkSize">Size of the batch chunk</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableExtensions.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            Performs a specific action on each element of the sequence
+            </summary>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableExtensions.AddRange``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            ICollection extension brining the useful AddRange from List
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="collection"></param>
+            <param name="source"></param>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableExtensions.InferType(System.String[])">
+            <summary>
+            Tries to guess the type of data contained in the strings
+            </summary>
+            <param name="data">The data.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Collections.Generic.EnumerableExtensions.InferType(System.String[],System.Collections.IList@)">
+            <summary>
+            Tries to guess the type of data contained in the strings
+            </summary>
+            <param name="data">The data.</param>
+            <param name="values">Where to put the result values</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Collections.ListExtensions">
+            <summary>
+            Extensions methods for <see cref="T:System.Collections.Generic.IList`1"/> and <see cref="T:System.Collections.IList"/>
+            </summary>
+        </member>
+        <member name="M:System.Collections.ListExtensions.AddRange(System.Collections.IList,System.Collections.IEnumerable)">
+            <summary>
+            Adds range of elements into the non-generic list
+            </summary>
+            <param name="destination">The destination.</param>
+            <param name="source">The source.</param>
+        </member>
+        <member name="M:System.Collections.ListExtensions.AddRange(System.Collections.IList,System.Collections.ICollection)">
+            <summary>
+            Adds range of elements into the non-generic list
+            </summary>
+            <param name="destination">The destination.</param>
+            <param name="source">The source.</param>
+        </member>
+        <member name="T:System.EnumExtensions">
+            <summary>
+            Enum extensions methods
+            </summary>
+        </member>
+        <member name="T:System.GuidExtensions">
+            <summary>
+            Guid extensions
+            </summary>
+        </member>
+        <member name="M:System.GuidExtensions.ToShortest(System.Guid)">
+            <summary>
+            Returns shortest possible representation of guid as string i.e. 20 characters instead of
+            36 comparing to built-int ToString() representation. It uses ASCII86 encoding to achieve this.
+            See <see cref="M:System.StringExtensions.FromShortestGuid(System.String)"/> to convert back to Guid.
+            </summary>
+        </member>
+        <member name="T:System.IntExtensions">
+            <summary>
+            <see cref="T:System.Int32"/> extension methods
+            </summary>
+        </member>
+        <member name="M:System.IntExtensions.ToFileSizeString(System.Int32)">
+            <summary>
+            Converts number to readable size string in IEC format, i.e. 1024 converts to "1.02 KiB"
+            </summary>
+        </member>
+        <member name="M:System.IntExtensions.ToFileSizeUiString(System.Int32)">
+            <summary>
+            Converts number to readable size string in SI format, i.e. 1024 converts to "1.02 KB"
+            </summary>
+        </member>
+        <member name="M:System.IntExtensions.Seconds(System.Int32)">
+            <summary>
+            Converts number to seconds
+            </summary>
+            <param name="number">Number of seconds</param>
+            <returns>Timespan values</returns>
+        </member>
+        <member name="M:System.IntExtensions.Minutes(System.Int32)">
+            <summary>
+            Converts number to minutes
+            </summary>
+            <param name="number">Number of minutes</param>
+            <returns>Timespan value</returns>
+        </member>
+        <member name="M:System.IntExtensions.Hours(System.Int32)">
+            <summary>
+            Converts number to hours 
+            </summary>
+            <param name="number">Number of hours</param>
+            <returns>Timespan value</returns>
+        </member>
+        <member name="T:System.LongExtensions">
+            <summary>
+            <see cref="T:System.Int64"/> extension methods
+            </summary>
+        </member>
+        <member name="M:System.LongExtensions.ToFileSizeString(System.Int64)">
+            <summary>
+            Converts number to readable size string in IEC format, i.e. 1024 converts to "1.02 KiB"
+            </summary>
+        </member>
+        <member name="M:System.LongExtensions.ToFileSizeUiString(System.Int64)">
+            <summary>
+            Converts number to readable size string in SI format, i.e. 1024 converts to "1.02 KB"
+            </summary>
+        </member>
+        <member name="T:System.IO.NetFile">
+            <summary>
+            <see cref="T:System.IO.File"/> extensions. Due to the fact <see cref="T:System.IO.File"/> is a static class and cannot be extended
+            with extension methods this is implemented a new static class.
+            </summary>
+        </member>
+        <member name="M:System.IO.NetFile.Gzip(System.String,System.String)">
+            <summary>
+            Gzips the file
+            </summary>
+            <param name="filePath">Path to the file to gzip</param>
+            <param name="targetPath">Target file name for the gzipped file. Optional and when nul creates a new 
+            file in the same folder appending the .gz extension. For example mytextfile.txt => mytextfile.txt.gz</param>
+        </member>
+        <member name="M:System.IO.NetFile.Ungzip(System.String,System.String)">
+            <summary>
+            Ungzips the file
+            </summary>
+            <param name="filePath">Path to the file to ungzip</param>
+            <param name="targetPath">Target file for the ungzipped file. Optional. When null source file must end with
+            .gz extension and target file will be decompressed to a file without it. For example mytextfile.txt.gz => mytextfile.txt</param>
+        </member>
+        <member name="T:System.IO.NetPath">
+            <summary>
+            <see cref="T:System.IO.Path"/> extensions. Due to the fact <see cref="T:System.IO.Path"/> is a static class and cannot be extended
+            with extension methods this is implemented a new static class.
+            </summary>
+        </member>
+        <member name="P:System.IO.NetPath.ExecDir">
+            <summary>
+            Gets current assembly execution directory in a more reliable way
+            </summary>
+        </member>
+        <member name="P:System.IO.NetPath.ExecDirInfo">
+            <summary>
+            Gets current assembly execution directory information in a more reliable way
+            </summary>
+        </member>
+        <member name="T:System.IO.StreamExtensions">
+            <summary>
+            <see cref="T:System.IO.Stream"/> extension
+            </summary>
+        </member>
+        <member name="M:System.IO.StreamExtensions.TryGetSize(System.IO.Stream,System.Int64@)">
+            <summary>
+            Attemps to get the size of this stream by reading the Length property, otherwise returns 0.
+            </summary>
+        </member>
+        <member name="M:System.IO.StreamExtensions.TryGetSize(System.IO.Stream)">
+            <summary>
+            Attemps to get the size of this stream by reading the Length property, otherwise returns 0.
+            </summary>
+        </member>
+        <member name="M:System.IO.StreamExtensions.ReadUntil(System.IO.Stream,System.Byte[])">
+            <summary>
+            Reads the stream until a specified sequence of bytes is reached.
+            </summary>
+            <returns>Bytes before the stop sequence</returns>
+        </member>
+        <member name="M:System.IO.StreamExtensions.ToByteArray(System.IO.Stream)">
+            <summary>
+            Reads all stream in memory and returns as byte array
+            </summary>
+        </member>
+        <member name="M:System.IO.StreamExtensions.ToString(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Converts the stream to string using specified encoding. This is done by reading the stream into
+            byte array first, then applying specified encoding on top.
+            </summary>
+        </member>
+        <member name="M:System.IO.StreamExtensions.GetHash(System.IO.Stream,System.HashType)">
+            <summary>
+            Calculates hash on input stream.
+            </summary>
+            <param name="stream">Input stream.</param>
+            <param name="hashType">Hash type to calculate.</param>
+            <returns>Hexadecimal representation of byte array as string</returns>
+        </member>
+        <member name="M:System.IO.StreamExtensions.GetHashBytes(System.IO.Stream,System.HashType)">
+            <summary>
+            Calculates hash on input stream.
+            </summary>
+            <param name="stream">Input stream.</param>
+            <param name="hashType">Hash type to calculate.</param>
+            <returns>Hash</returns>
+        </member>
+        <member name="M:System.IO.StreamExtensions.Gzip(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            GZips source stream into a target stream
+            </summary>
+        </member>
+        <member name="M:System.IO.StreamExtensions.Ungzip(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            UnGZips source stream into a target stream
+            </summary>
+        </member>
+        <member name="M:System.IO.StreamExtensions.ReadAsJsonObject``1(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Deserialise stream into a JSON object
+            </summary>
+        </member>
+        <member name="M:System.IO.StreamExtensions.ReadAsJsonObject(System.IO.Stream,System.Text.Encoding,System.Type)">
+            <summary>
+            Deserialise stream into a JSON object
+            </summary>
+        </member>
+        <member name="T:System.Net.NetworkCredentialExtensions">
+            <summary>
+            Provides extension methods for <see cref="T:System.Net.NetworkCredential"/>
+            </summary>
+        </member>
+        <member name="M:System.Net.NetworkCredentialExtensions.ToFriendlyString(System.Net.NetworkCredential)">
+            <summary>
+            Converts to a friendly format which is username:password@domain
+            </summary>
+            <param name="credential">Credential to convert</param>
+            <returns>Friendly string. If some parts are missing they are not added, for example if there is no
+            domain information you'll get username:password.</returns>
+        </member>
+        <member name="T:System.ObjectExtensions">
+            <summary>
+            Object extensions.
+            </summary>
+        </member>
+        <member name="M:System.ObjectExtensions.ToJsonString(System.Object,System.Boolean,System.Boolean)">
+            <summary>
+            Converts any object to a JSON string if possible
+            </summary>
+            <param name="obj">Object to serialize</param>
+            <param name="compress">When true JSON is compressed, i.e. put in one line to be as small as possible</param>
+            <param name="enumsAsStrings">When true enums are serialized as strings</param>
+        </member>
+        <member name="T:System.StringExtensions">
+            <summary>
+            String extensions.
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.FromHexToBytes(System.String)">
+            <summary>
+            Convers hex string to byte array
+            </summary>
+            <param name="hex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringExtensions.StripHtml(System.String)">
+            <summary>
+            Strips HTML string from any tags leaving text only.
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringExtensions.HtmlEncode(System.String)">
+            <summary>
+            Encodes to HTML string
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.HtmlDecode(System.String)">
+            <summary>
+            Decodes from HTML string
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.UrlEncode(System.String)">
+            <summary>
+            URL-encodes input string
+            </summary>
+            <param name="value">String to encode</param>
+            <returns>Encoded string</returns>
+        </member>
+        <member name="M:System.StringExtensions.UrlDecode(System.String)">
+            <summary>
+            URL-decodes input string
+            </summary>
+            <param name="value">String to decode</param>
+            <returns>Decoded string</returns>
+        </member>
+        <member name="M:System.StringExtensions.AsJsonObject``1(System.String)">
+            <summary>
+            Deserialises object represented as JSON string to a real object
+            </summary>
+            <typeparam name="T">Object type</typeparam>
+            <param name="s">JSON representation.</param>
+            <returns>Object instance</returns>
+        </member>
+        <member name="M:System.StringExtensions.AsJsonObject(System.String,System.Type)">
+            <summary>
+            Deserialises object represented as JSON string to a real object
+            </summary>
+            <param name="s">JSON representation.</param>
+            <param name="t">Object type.</param>
+            <returns>Object instance</returns>
+        </member>
+        <member name="M:System.StringExtensions.Base64Encode(System.String)">
+            <summary>
+            Encodes a string to BASE64 format
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.Base64Decode(System.String)">
+            <summary>
+            Decodes a BASE64 encoded string
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.Base64DecodeAsBytes(System.String)">
+            <summary>
+            Decodes a BASE64 encoded string to byte array
+            </summary>
+            <param name="s">String to decode</param>
+            <returns>Byte array</returns>
+        </member>
+        <member name="M:System.StringExtensions.FromShortestGuid(System.String)">
+            <summary>
+            Converts shortest guid representation back to Guid. See <see cref="M:System.GuidExtensions.ToShortest(System.Guid)"/>
+            on how to convert Guid to string.
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.GetHash(System.String,System.HashType)">
+            <summary>
+            Gets string hash
+            </summary>
+            <param name="s">Source string</param>
+            <param name="hashType">Hash type</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringExtensions.ToMemoryStream(System.String,System.Text.Encoding)">
+            <summary>
+            Converts to MemoryStream with a specific encoding
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.ToMemoryStream(System.String)">
+            <summary>
+            Converts to MemoryStream in UTF-8 encoding
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.SanitizePath(System.String)">
+            <summary>
+            Removes invalid path characters from the string, replacing them by space (' ') character
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.SanitizePath(System.String,System.Char)">
+            <summary>
+            Removes invalid path characters from the string, replacing them by the given character
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.MatchesWildcard(System.String,System.String)">
+            <summary>
+            Filesystem style widlcard match where * stands for any characters of any length and ? standa for one character
+            </summary>
+            <param name="s">input string</param>
+            <param name="wildcard">wildcard</param>
+            <returns>True if matches, false otherwise</returns>
+        </member>
+        <member name="M:System.StringExtensions.Gzip(System.String,System.Text.Encoding)">
+            <summary>
+            Gzips a specified string into array of bytes using specified encoding
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.Gzip(System.String,System.Text.Encoding,System.IO.Stream)">
+            <summary>
+            Gzips a specified string in specified encoding to to destination stream.
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.FindTagged(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Looks for <paramref name="startTag"/> and <paramref name="endTag"/> followed in sequence and when found returns the text between them.
+            </summary>
+            <param name="s">Input string</param>
+            <param name="startTag">Start tag</param>
+            <param name="endTag">End tag</param>
+            <param name="includeOuterTags">When set to true, returns the complete phrase including start and end tag value,
+            otherwise only inner text returned</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringExtensions.ReplaceTagged(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Looks for <paramref name="startTag"/> and <paramref name="endTag"/> followed in sequence, and if found
+            performs a replacement of text inside them with <paramref name="replacementText"/>
+            </summary>
+            <param name="s">Input string</param>
+            <param name="startTag">Start tag</param>
+            <param name="endTag">End tag</param>
+            <param name="replacementText">Replacement text</param>
+            <param name="replaceOuterTokens">When set to true, not only the text between tags is replaced, but the whole
+            phrase with <paramref name="startTag"/>, text between tags and <paramref name="endTag"/></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringExtensions.SpacedToCamelCase(System.String)">
+            <summary>
+            Converts a string with spaces to a camel case version, for example
+            "The camel string" is converted to "TheCamelString"
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.Capitalize(System.String)">
+            <summary>
+            Transforms the string so that the first letter is uppercase and the rest of them are lowercase
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.Slice(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Pythonic approach to slicing strings
+            </summary>
+            <param name="s">Input string</param>
+            <param name="start">Is the start index to slice from. It can be either positive or negative.
+            Negative value indicates that the index is taken from the end of the string.</param>
+            <param name="end">Is the index to slice to. It can be either positive or negative.
+            Negative value indicates that the index is taken from the end of the string.</param>
+            <returns>Sliced string</returns>
+        </member>
+        <member name="M:System.StringExtensions.SplitByDelimiter(System.String,System.String[])">
+            <summary>
+            Splits the string into key and value using the provided delimiter values. Both key and value are trimmed as well.
+            </summary>
+            <param name="s">Input string. When null returns null immediately.</param>
+            <param name="delimiter">List of delmiters between key and value. This method searches for all the provided
+            delimiters, and splits by the first left-most one.</param>
+            <returns>A tuple of two values where the first one is the key and second is the value. If none of the delimiters
+            are found the second value of the tuple is null and the first value is the input string</returns>
+        </member>
+        <member name="M:System.StringExtensions.ToNetworkCredential(System.String)">
+            <summary>
+            Converts string to network credentials if it's formatted in a friendly way.
+            See <see cref="M:System.Net.NetworkCredentialExtensions.ToFriendlyString(System.Net.NetworkCredential)"/> how to do it.
+            </summary>
+            <param name="s">String to conver from.</param>
+            <returns>An instance of <see cref="T:System.Net.NetworkCredential"/></returns>
+        </member>
+        <member name="T:System.TypeExtensions">
+            <summary>
+            <see cref="T:System.Type"/> extensions
+            </summary>
+        </member>
+        <member name="M:System.TypeExtensions.IsEnum(System.Type)">
+            <summary>
+            More reliable way to determine if a type is Enum
+            </summary>
+        </member>
+        <member name="M:System.TypeExtensions.IsSimple(System.Type)">
+            <summary>
+            Deterimites if type is "simple". It's hard to describe what a simple type is, but this is used mostly in serialization and
+            says whether a type has to be expanded (not simple) or represented as a value.
+            </summary>
+            <param name="t">The type</param>
+            <returns>True if a type is siimple</returns>
+        </member>
+        <member name="M:System.TypeExtensions.CreateDefaultValue(System.Type)">
+            <summary>
+            Creates the default value for type. It's null for reference type and 0 for int, float etc.
+            </summary>
+            <param name="t">The value.</param>
+            <returns>Value</returns>
+        </member>
+        <member name="M:System.TypeExtensions.GetAssembly(System.Type)">
+            <summary>
+            Gets the assembly this type is in
+            </summary>
+            <param name="t">The type.</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.TypeExtensions.ProductVersion(System.Type)">
+            <summary>
+            Gets the product version (set by [assembly:Version] attribute)
+            </summary>
+        </member>
+        <member name="M:System.TypeExtensions.FileVersion(System.Type)">
+            <summary>
+            Gets the file version (set by [assembly:FileVersion] attribute)
+            </summary>
+            <param name="t">A type within the assembly</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.TypeExtensions.GetSameFolderEmbeddedResourceFile(System.Type,System.String)">
+            <summary>
+            Reads embedded resource file which lies next to a type specified in TTypeNextToFile 
+            </summary>
+            <param name="type">Type which resides in the same folder as the resource</param>
+            <param name="fileName">name of the file, i.e. "myresource.txt"</param>
+            <returns>File stream if it exists, otherwise null</returns>
+        </member>
+        <member name="M:System.TypeExtensions.GetSameFolderEmbeddedResourceFileAsText(System.Type,System.String)">
+            <summary>
+            Reads embedded resource file as text
+            </summary>
+            <param name="type">Type which resides in the same folder as the resource</param>
+            <param name="fileName">name of the file, i.e. "myresource.txt"</param>
+            <returns>File stream if it exists, otherwise null</returns>
+        </member>
+        <member name="M:System.TypeExtensions.GetSameFolderEmbeddedResourceFileAsLines``1(System.Type,System.String)">
+            <summary>
+            Reads embedded resource file as array of lines
+            </summary>
+            <typeparam name="TTypeNextToFile">This type must reside in the same folder as resource file</typeparam>
+            <param name="type">Type which resides in the same folder as the resource</param>
+            <param name="fileName">name of the file, i.e. "myresource.txt"</param>
+            <returns>File stream if it exists, otherwise null</returns>
+        </member>
+        <member name="T:System.HashType">
+            <summary>
+            Supported hashing algorithms
+            </summary>
+        </member>
+        <member name="F:System.HashType.Md5">
+            <summary>
+            500Mb hashes in 1462 ms, size: 16b
+            </summary>
+        </member>
+        <member name="F:System.HashType.Sha1">
+            <summary>
+            500Mb hashes in 1644 ms, size: 20b
+            </summary>
+        </member>
+        <member name="F:System.HashType.Sha256">
+            <summary>
+            500Mb hashes in 5618 ms, size: 32b
+            </summary>
+        </member>
+        <member name="F:System.HashType.Sha384">
+            <summary>
+            500Mb hashes in 3839 ms, size: 48b
+            </summary>
+        </member>
+        <member name="F:System.HashType.Sha512">
+            <summary>
+            500Mb hashes in 3820 ms, size: 64b
+            </summary>
+        </member>
+    </members>
+</doc>
