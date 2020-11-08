@@ -192,7 +192,7 @@
     {"id":{"name":"TweenFire","path":"scripts/TweenFire/TweenFire.yy",},"order":1,},
     {"id":{"name":"image_speed__","path":"scripts/image_speed__/image_speed__.yy",},"order":18,},
     {"id":{"name":"EaseOutElastic","path":"scripts/EaseOutElastic/EaseOutElastic.yy",},"order":25,},
-    {"id":{"name":"scr_dialog_actions","path":"scripts/scr_dialog_actions/scr_dialog_actions.yy",},"order":3,},
+    {"id":{"name":"scr_dialog_actions","path":"scripts/scr_dialog_actions/scr_dialog_actions.yy",},"order":0,},
     {"id":{"name":"TweenCallbackInvalidate","path":"scripts/TweenCallbackInvalidate/TweenCallbackInvalidate.yy",},"order":3,},
     {"id":{"name":"con_save_dialog","path":"objects/con_save_dialog/con_save_dialog.yy",},"order":4,},
     {"id":{"name":"__health","path":"scripts/__health/__health.yy",},"order":1,},
@@ -230,8 +230,8 @@
     "children": [],
   },
   "RoomOrder": [
-    {"name":"rm_settings","path":"rooms/rm_settings/rm_settings.yy",},
     {"name":"rm_grab_client","path":"rooms/rm_grab_client/rm_grab_client.yy",},
+    {"name":"rm_settings","path":"rooms/rm_settings/rm_settings.yy",},
   ],
   "Folders": [
     {"folderPath":"folders/Sprites.yy","order":0,"resourceVersion":"1.0","name":"Sprites","tags":[],"resourceType":"GMFolder",},
@@ -283,6 +283,7 @@
     {"folderPath":"folders/Scripts/9Slice/Internal.yy","order":1,"resourceVersion":"1.0","name":"Internal","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Objects/Controllers/Grab Client.yy","order":6,"resourceVersion":"1.0","name":"Grab Client","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Objects/Controllers/Settings.yy","order":7,"resourceVersion":"1.0","name":"Settings","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Scripts/Grab Client.yy","order":5,"resourceVersion":"1.0","name":"Grab Client","tags":[],"resourceType":"GMFolder",},
   ],
   "AudioGroups": [],
   "TextureGroups": [

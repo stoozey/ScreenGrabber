@@ -55,12 +55,11 @@ SaveScreenshot = function()
 		draw_surface(screenSurface, -_rect.x1, -_rect.y1);
 	surface_reset_target();
 
-	var _filename = (temp_directory + "\\STOOZEY_SCREENGRABBER_SCREENSHOT.png");
-	surface_save(_shotSurface, _filename);
+	surface_save(_shotSurface, SCREENSHOT_DIR);
 	surface_free(_shotSurface);
 	
 	with (con_save_dialog)
 	{
-		dialogActions[selectedAction](_filename);
+		dialogActions[selectedAction]();
 	}
 }

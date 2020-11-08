@@ -6,9 +6,9 @@ enum DialogAction
 }
 
 globalvar dialogActions;
-dialogActions = array_create(DialogAction.Null, function(_filename) {});
+dialogActions = array_create(DialogAction.Null, function() {});
 
-dialogActions[DialogAction.CopyToClipboard] = function(_filename)
+dialogActions[DialogAction.CopyToClipboard] = function()
 {
-	execute_shell("\"post_call.exe\" copy_to_clipboard \"" + _filename + "\"", false);
+	execute_shell("\"post_call.exe\" copy_to_clipboard \"" + SCREENSHOT_DIR + "\"", false);
 }
