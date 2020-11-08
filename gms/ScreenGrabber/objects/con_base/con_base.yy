@@ -23,8 +23,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Controllers",
-    "path": "folders/Objects/Controllers.yy",
+    "name": "Grab Client",
+    "path": "folders/Objects/Controllers/Grab Client.yy",
   },
   "resourceVersion": "1.0",
   "name": "con_base",

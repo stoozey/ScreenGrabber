@@ -21,7 +21,6 @@ if (!mouse_check_button(mb_left))
 	if (dragging)
 	{
 		dragging = false;
-		//DoDraggingTween(0);
 		
 		if (rectangle.GetWidth() != 0) && (rectangle.GetHeight() != 0)
 			con_save_dialog.Activate();

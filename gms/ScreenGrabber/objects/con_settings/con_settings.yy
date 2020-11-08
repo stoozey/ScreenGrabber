@@ -18,17 +18,17 @@
   "physicsKinematic": false,
   "physicsShapePoints": [],
   "eventList": [
-    {"isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,"parent":{"name":"con_save_dialog","path":"objects/con_save_dialog/con_save_dialog.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
-    {"isDnD":false,"eventNum":0,"eventType":3,"collisionObjectId":null,"parent":{"name":"con_save_dialog","path":"objects/con_save_dialog/con_save_dialog.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
+    {"isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,"parent":{"name":"con_settings","path":"objects/con_settings/con_settings.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
+    {"isDnD":false,"eventNum":64,"eventType":8,"collisionObjectId":null,"parent":{"name":"con_settings","path":"objects/con_settings/con_settings.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
   ],
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Grab Client",
-    "path": "folders/Objects/Controllers/Grab Client.yy",
+    "name": "Settings",
+    "path": "folders/Objects/Controllers/Settings.yy",
   },
   "resourceVersion": "1.0",
-  "name": "con_save_dialog",
+  "name": "con_settings",
   "tags": [],
   "resourceType": "GMObject",
 }
