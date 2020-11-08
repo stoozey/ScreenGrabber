@@ -96,6 +96,7 @@
     {"id":{"name":"EaseOutBounce","path":"scripts/EaseOutBounce/EaseOutBounce.yy",},"order":22,},
     {"id":{"name":"TGMS_TargetExists","path":"scripts/TGMS_TargetExists/TGMS_TargetExists.yy",},"order":9,},
     {"id":{"name":"TGMS_Variable_Instance_Set","path":"scripts/TGMS_Variable_Instance_Set/TGMS_Variable_Instance_Set.yy",},"order":3,},
+    {"id":{"name":"spr_9slice_boxier_small","path":"sprites/spr_9slice_boxier_small/spr_9slice_boxier_small.yy",},"order":3,},
     {"id":{"name":"EaseOutQuart","path":"scripts/EaseOutQuart/EaseOutQuart.yy",},"order":28,},
     {"id":{"name":"TweenMoreScript","path":"scripts/TweenMoreScript/TweenMoreScript.yy",},"order":0,},
     {"id":{"name":"path_orientation__","path":"scripts/path_orientation__/path_orientation__.yy",},"order":21,},

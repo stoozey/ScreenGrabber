@@ -35,7 +35,7 @@ surface_set_target(draggingSurface);
 				switch (config.visual.fancy_drag_box)
 				{
 					case true:
-						draw_9slice(_rect.x1, _rect.y1, _width, _height, spr_9slice_box_small, 0, c_black);
+						draw_9slice(_rect.x1, _rect.y1, _width, _height, spr_9slice_boxier_small, 0, c_black);
 						break;
 	
 					case false:

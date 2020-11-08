@@ -49,7 +49,7 @@ dragReversed	= [ false, false ];
 
 draggingSurface	= -1;
 
-draggingAlpha = 0;
+draggingAlpha = 0.2;
 draggingTween = TweenNull();
 
 DoDraggingTween = function(_alpha)
@@ -57,5 +57,7 @@ DoDraggingTween = function(_alpha)
 	if (TweenExists(draggingTween))
 		TweenDestroy(draggingTween);
 	
-	draggingTween = TweenFire(id, EaseOutQuart, TWEEN_MODE_ONCE, true, 0, 0.2, "draggingAlpha", !_alpha, _alpha);
+	draggingTween = TweenFire(id, EaseOutQuart, TWEEN_MODE_ONCE, true, 0, 0.2, "draggingAlpha", draggingAlpha, _alpha);
 }
+
+DoDraggingTween(0.2);

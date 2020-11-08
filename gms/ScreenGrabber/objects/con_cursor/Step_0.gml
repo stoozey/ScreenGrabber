@@ -23,7 +23,8 @@ if (!mouse_check_button(mb_left))
 		dragging = false;
 		//DoDraggingTween(0);
 		
-		con_save_dialog.Activate();
+		if (rectangle.GetWidth() != 0) && (rectangle.GetHeight() != 0)
+			con_save_dialog.Activate();
 	}
 	
 	exit;
