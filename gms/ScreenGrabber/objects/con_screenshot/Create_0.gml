@@ -55,7 +55,7 @@ SaveScreenshot = function()
 		draw_surface(screenSurface, -_rect.x1, -_rect.y1);
 	surface_reset_target();
 
-	surface_save(_shotSurface, SCREENSHOT_DIR);
+	surface_save(_shotSurface, DIR_TEMP_SREENSHOT);
 	surface_free(_shotSurface);
 	
 	with (con_save_dialog)

@@ -9,6 +9,31 @@ config =
 	
 	debug: true,
 };
+		
+switch (file_exists(FILE_CONFIG))
+{
+	case true:
+	{
+		var _file = file_text_open_read(FILE_CONFIG);
+			var _json = file_text_read_string(_file);
+		file_text_close(_file);
+		
+		config = snap_from_json(_json);
+	} break;
+	
+	case false:
+	{
+		var _json = snap_to_json(config);
+		var _file = file_text_open_write(FILE_CONFIG);
+			file_text_write_string(_file, _json);
+		file_text_close(_file);
+		
+		delete _json;
+		
+		print(FILE_CONFIG);
+	} break;
+}
+
 
 var h = config.visual.favourite_colour.h, s = config.visual.favourite_colour.s, l = config.visual.favourite_colour.l;
 var _baseColour = make_colour_hsv(h, s, l);//HslToHsv(h, s, l);

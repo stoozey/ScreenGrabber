@@ -1,4 +1,3 @@
-#macro DIALOG_ITEM_HEIGHT 48
 #macro SAVE_DIALOG_DISTANCE 32
 
 selectedAction = DialogAction.CopyToClipboard;
@@ -10,14 +9,18 @@ width	= 1;
 draw_set_font(fnt_save_dialog);
 for (var i = 0; i < DialogAction.Null; ++i)
 	width = max(width, string_width(dialogActions[i].Name) + 28);
+dialogItemHeight = string_height("W") + 16;
 
-height	= (DialogAction.Null * DIALOG_ITEM_HEIGHT);
+height	= (DialogAction.Null * dialogItemHeight);
 
 active = false;
 
-selectionPos	= -900;
-selectionValue	= 0;
-selectionTween	= TweenNull();
+selectionPos			= -900;
+selectionValue			= 0;
+selectionPosTo			= selectionPos;
+selectionNextPos		= selectionPos;
+selectionTween			= TweenNull();
+selectionSlideInTween	= TweenNull();
 
 introTween = TweenNull();
 introAmount = 0;
@@ -36,10 +39,6 @@ Activate = function()
 	active = true;
 	DoIntroTween(1);
 
-	if (TweenExists(selectionTween))
-		TweenDestroy(selectionTween);
-	selectionPos = -900;
-
 	var _x = con_cursor.rectangle.x2;
 	var _y = con_cursor.rectangle.y1;
 	
@@ -54,6 +53,8 @@ Activate = function()
 Deactivate = function()
 {
 	if (introAmount != 1) return;
+	
+	TweenFire(id, EaseInOutSine, TWEEN_MODE_ONCE, true, 0, 0.2, "selectionValue", selectionValue, 0);
 	
 	active = false;	
 	DoIntroTween(0);
@@ -75,7 +76,7 @@ Draw = function()
 	draw_9slice(_x, _y, width, (height * introAmount) + _heightBuffer, spr_9slice_boxier_large, 0, favColour.background_darker, 1);
 	
 	if (introAmount > 0.7)
-		draw_9slice(_x, selectionPos, max(width * selectionValue, 1), DIALOG_ITEM_HEIGHT, spr_9slice_box_large, 0, favColour.background_dark, 1, 1);
+		draw_9slice(_x, selectionPos, max(width * selectionValue, 1), dialogItemHeight, spr_9slice_box_large, 0, favColour.background_dark, 1, 1);
 		
 	draw_9slice(_x, _y, width, (height * introAmount) + _heightBuffer, spr_9slice_boxier_large_outline, 0, favColour.full, 1);
 	
@@ -87,39 +88,34 @@ Draw = function()
 	for (var i = 0; i < DialogAction.Null; i++)
 	{
 		var _thisAction = dialogActions[i];
-		var _rect = [ _x, _y, _x + width, _y + DIALOG_ITEM_HEIGHT ];
+		var _rect = [ _x, _y, _x + width, _y + dialogItemHeight ];
 		
 		if ((i > 0) && (i < DialogAction.Null))
 			draw_9slice(_x + _lineWidthBuffer, _y - _lineHeight, width - (_lineWidthBuffer * 2), _lineHeight, spr_9slice_boxier_small, 0, favColour.dark, 1, introAmount);
 			
-		draw_text(_x + (width * 0.5), _y + (DIALOG_ITEM_HEIGHT * 0.5), _thisAction.Name);
+		draw_text(_x + (width * 0.5), _y + (dialogItemHeight * 0.5), _thisAction.Name);
 		
-		_y += DIALOG_ITEM_HEIGHT;
+		_y += dialogItemHeight;
 
 		if (!is_in_rect(mouse_xx, mouse_yy, _rect)) continue;
 		_selected = true;
 		
-		var _posTo = _rect[1];
-		if ((selectionPos != _posTo) && (!TweenExists(selectionTween)))
+		selectionPosTo = _rect[1];
+		if (selectionValue == 0)
 		{
-			if (selectionValue == 0)
-			{
-				selectionPos = _posTo;
-				TweenFire(id, EaseInOutSine, TWEEN_MODE_ONCE, true, 0, 0.2, "selectionValue", selectionValue, 1);
-			}
-			
-			selectionTween = TweenCreate(id, EaseOutExpo, TWEEN_MODE_ONCE, true, 0, 0.1, "selectionPos", clamp(selectionPos, y, y + height), _posTo);
+			selectionPos = selectionPosTo;
+			selectionSlideInTween = TweenFire(id, EaseInOutSine, TWEEN_MODE_ONCE, true, 0, 0.2, "selectionValue", selectionValue, 1);
 		}
-		selectionPos = lerp(selectionPos, _rect[1], 0.1);
 		
 		if (!mouse_check_button_pressed(mb_left)) continue;
 		selectedAction = i;
 		con_screenshot.SaveScreenshot();
 	}
 	
-	// causes weird issues sadly
-	//if ((!_selected) && (selectionValue == 1))
-	//	TweenFire(id, EaseInOutQuint, TWEEN_MODE_ONCE, true, 0, 0.1, "selectionValue", selectionValue, 0);
+	selectionPos = Ease(selectionPos, selectionPosTo, 0.45, EaseInOutQuart);
+	
+	if ((!_selected) && (selectionValue == 1))
+		selectionSlideInTween = TweenFire(id, EaseInOutCubic, TWEEN_MODE_ONCE, true, 0, 0.15, "selectionValue", selectionValue, 0);
 	
 	draw_set_valign(fa_top);
 	draw_set_halign(fa_left);
