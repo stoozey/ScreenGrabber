@@ -68,8 +68,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"48f98e5b-2e31-4680-9cf5-acb8523ab43e","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "name": "9Slice",
+    "path": "folders/Sprites/9Slice.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_9slice_box_large",

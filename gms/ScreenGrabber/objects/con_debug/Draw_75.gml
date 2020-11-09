@@ -1,3 +1,5 @@
+if (!config.debug) exit;
+
 var _totalLogs = ds_list_size(logs);
 if (_totalLogs == 0) exit;
 

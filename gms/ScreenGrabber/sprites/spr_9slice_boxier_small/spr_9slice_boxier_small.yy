@@ -68,8 +68,8 @@
     {"visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default","resourceVersion":"1.0","name":"d569995f-6f30-4412-b1ec-6399359d8db6","tags":[],"resourceType":"GMImageLayer",},
   ],
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "name": "9Slice",
+    "path": "folders/Sprites/9Slice.yy",
   },
   "resourceVersion": "1.0",
   "name": "spr_9slice_boxier_small",

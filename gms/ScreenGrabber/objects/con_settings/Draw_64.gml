@@ -3,4 +3,5 @@ if (!surface_exists(screenSurface))
 
 draw_surface(screenSurface, 0, 0);
 
-draw_9slice(0, 0, width, height, spr_9slice_box_large, 0);
+draw_9slice(0, 0, width, height, spr_9slice_box_large, 0, favColour.background_darker);
+draw_9slice(0, 0, width, height, spr_9slice_box_large_outline, 0, favColour.full);
