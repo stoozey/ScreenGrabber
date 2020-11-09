@@ -47,11 +47,11 @@ namespace tray
             base.WndProc(ref m);
         }
 
-        private void TryStartProgram(string _filename, bool _allowInfiniteOpen = false)
+        private void TryStartProgram(string _filename, string _argument = null, bool _allowInfiniteOpen = false)
         {
             if ((!_allowInfiniteOpen) && (App.IsProcessOpen(Path.GetFileNameWithoutExtension(_filename)))) return;
 
-                if (!File.Exists(_filename))
+            if (!File.Exists(_filename))
             {
                 MessageBox.Show(
                     $"ScreenGrabber:\nTried to run \"{_filename}\", but the file did not exist!\nConsider re-installing ScreenGrabber, go to Info > Website.",
@@ -62,8 +62,15 @@ namespace tray
                 return;
             }
 
-            Process.Start(_filename);
+            switch (_argument == null)
+            {
+                case true: Process.Start(_filename); break;
+                case false: Process.Start(_filename, _argument); break;
+            }
         }
+
+        private void RunGrabClient(string _argument = null)
+            => TryStartProgram($@"{Directory.GetCurrentDirectory()}\data\grab_client.exe", _argument);
 
         private void TakeScreenshot()
             => TryStartProgram($@"{Directory.GetCurrentDirectory()}\data\grab_client.exe");
@@ -72,7 +79,7 @@ namespace tray
             => TakeScreenshot();
         // CHANGE TO SETTINGS APP
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
-            => TryStartProgram("");
+            => RunGrabClient("rm_settings");
 
         private void twitterToolStripMenuItem_Click(object sender, EventArgs e)
             => Process.Start("https://twitter.com/stoozey_");
