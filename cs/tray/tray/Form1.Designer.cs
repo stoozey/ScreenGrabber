@@ -56,21 +56,21 @@
             this.infoParent,
             this.exitToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(181, 114);
+            this.contextMenuStrip.Size = new System.Drawing.Size(162, 92);
             this.contextMenuStrip.Text = "ScreenGrabber ~ stoozey_";
             // 
             // takeScreenshotToolStripMenuItem
             // 
             this.takeScreenshotToolStripMenuItem.Image = global::tray.Properties.Resources.icon;
             this.takeScreenshotToolStripMenuItem.Name = "takeScreenshotToolStripMenuItem";
-            this.takeScreenshotToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.takeScreenshotToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.takeScreenshotToolStripMenuItem.Text = "Take Screenshot!";
             this.takeScreenshotToolStripMenuItem.Click += new System.EventHandler(this.takeScreenshotToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
@@ -80,7 +80,7 @@
             this.twitterToolStripMenuItem,
             this.applicationWebsiteToolStripMenuItem});
             this.infoParent.Name = "infoParent";
-            this.infoParent.Size = new System.Drawing.Size(180, 22);
+            this.infoParent.Size = new System.Drawing.Size(161, 22);
             this.infoParent.Text = "Info";
             // 
             // twitterToolStripMenuItem
@@ -100,7 +100,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -119,6 +119,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ScreenGrabber - by @stoozey_";
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 

@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using GlobalHotKey;
+using tray.Classes;
 
 namespace tray
 {
@@ -20,7 +21,10 @@ namespace tray
         public Form1()
         {
             InitializeComponent();
+        }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
             var success = RegisterHotKey(Handle, GetType().GetHashCode(), 0x0000, 0x2C);
             if (success) return;
 
@@ -43,9 +47,11 @@ namespace tray
             base.WndProc(ref m);
         }
 
-        private void TryStartProgram(string _filename)
+        private void TryStartProgram(string _filename, bool _allowInfiniteOpen = false)
         {
-            if (!File.Exists(_filename))
+            if ((!_allowInfiniteOpen) && (App.IsProcessOpen(Path.GetFileNameWithoutExtension(_filename)))) return;
+
+                if (!File.Exists(_filename))
             {
                 MessageBox.Show(
                     $"ScreenGrabber:\nTried to run \"{_filename}\", but the file did not exist!\nConsider re-installing ScreenGrabber, go to Info > Website.",
@@ -60,7 +66,7 @@ namespace tray
         }
 
         private void TakeScreenshot()
-            => TryStartProgram($@"{Directory.GetCurrentDirectory()}\grab_client.exe");
+            => TryStartProgram($@"{Directory.GetCurrentDirectory()}\data\grab_client.exe");
 
         private void takeScreenshotToolStripMenuItem_Click(object sender, EventArgs e)
             => TakeScreenshot();
@@ -76,5 +82,7 @@ namespace tray
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
             => Close();
+
+       
     }
 }
