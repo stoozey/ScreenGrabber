@@ -1,5 +1,8 @@
 var _mousePos = [ mouse_xx, mouse_yy ];
 
+var _rect = [ con_save_dialog.x, con_save_dialog.y, con_save_dialog.x + con_save_dialog.width, con_save_dialog.y + con_save_dialog.height ];
+if ((con_save_dialog.active) && (is_in_rect(_mousePos[X], _mousePos[Y], _rect))) exit;
+
 if ((mouse_check_button_pressed(mb_left)) && (!dragging))
 {
 	if (!dragging)

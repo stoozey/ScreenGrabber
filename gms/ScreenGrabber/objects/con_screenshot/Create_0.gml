@@ -60,6 +60,6 @@ SaveScreenshot = function()
 	
 	with (con_save_dialog)
 	{
-		dialogActions[selectedAction]();
+		dialogActions[selectedAction].RunFunction();
 	}
 }
