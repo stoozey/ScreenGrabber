@@ -28,9 +28,26 @@ namespace tray
             var success = RegisterHotKey(Handle, GetType().GetHashCode(), 0x0000, 0x2C);
             if (success) return;
 
-            MessageBox.Show("Error: Something is already hooked to the printscreen button.");
-            Close();
+            ShowError(
+                "Something is already hooked to the printscreen button.\nPlease close that application and restart this to use the shortcut."
+            );
         }
+
+        #region Helper stuff
+
+        private void ShowError(string _message)
+        {
+            MessageBox.Show(
+                _message,
+                "Whoops",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Exclamation
+            );
+        }
+
+        #endregion
+
+        #region Hotkey stuff
 
         [DllImport("user32.dll")]
         public static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vlc);
@@ -47,17 +64,17 @@ namespace tray
             base.WndProc(ref m);
         }
 
+        #endregion
+
+        #region Tray button stuff
+
         private void TryStartProgram(string _filename, string _argument = null, bool _allowInfiniteOpen = false)
         {
             if ((!_allowInfiniteOpen) && (App.IsProcessOpen(Path.GetFileNameWithoutExtension(_filename)))) return;
 
             if (!File.Exists(_filename))
             {
-                MessageBox.Show(
-                    $"ScreenGrabber:\nTried to run \"{_filename}\", but the file did not exist!\nConsider re-installing ScreenGrabber, go to Info > Website.",
-                    "Whoops",
-                    MessageBoxButtons.OK
-                );
+                ShowError($"ScreenGrabber:\nTried to run \"{_filename}\", but the file did not exist!\nConsider re-installing ScreenGrabber, go to Info > Website.");
 
                 return;
             }
@@ -90,6 +107,7 @@ namespace tray
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
             => Close();
 
-       
+        #endregion
+
     }
 }
