@@ -18,7 +18,7 @@
   "physicsKinematic": false,
   "physicsShapePoints": [],
   "eventList": [
-    {"isDnD":false,"eventNum":64,"eventType":8,"collisionObjectId":null,"parent":{"name":"con_drawing","path":"objects/con_drawing/con_drawing.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
+    {"isDnD":false,"eventNum":64,"eventType":8,"collisionObjectId":null,"parent":{"name":"con_drawing_grab_client","path":"objects/con_drawing_grab_client/con_drawing_grab_client.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
   ],
   "properties": [],
   "overriddenProperties": [],
@@ -27,7 +27,7 @@
     "path": "folders/Objects/Controllers/Grab Client.yy",
   },
   "resourceVersion": "1.0",
-  "name": "con_drawing",
+  "name": "con_drawing_grab_client",
   "tags": [],
   "resourceType": "GMObject",
 }
