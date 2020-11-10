@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 using Config.Net;
@@ -13,38 +15,22 @@ namespace post_call
 	internal static class Program
 	{
 		private static IConfig config;
+		private static Dictionary<string, Task> commands;
 		
 		[STAThread]
 		public static void Main(string[] _args)
 		{
-			InitValues();
+			if (_args.Length < 2) return;
 			
-			var filename = _args[1];
-			switch (_args[0])
+			var filename = _args[0];
+			InitValues(filename);
+
+			foreach (var commandName in _args)
 			{
-				case "copy_to_clipboard":
-				{
-					CopyToClipboard(filename);
-				} return;
-				
-				case "save_to_file":
-				{
-					SaveToFile(filename);
-				} return;
+				if (commandName == filename) continue;
 
-				case "copy_and_save_to_file":
-				{
-					SaveToFile(filename);
-					CopyToClipboard(filename);
-				} return;
-
-				case "upload_to_web":
-				{
-					UploadToWeb(filename);
-				} return;
+				commands[commandName].RunSynchronously();
 			}
-			
-			Console.WriteLine("Invalid arguments were given.");
 		}
 
 		private static void CopyToClipboard(string _filename)
@@ -109,13 +95,20 @@ namespace post_call
 
 		}
 		
-		private static void InitValues()
+		private static void InitValues(string _filename)
 		{
 			config = new ConfigurationBuilder<IConfig>()
 				.UseIniFile($@"{Directory.GetCurrentDirectory()}\post_call_config.ini")
 				.Build();
 			
 			ImgurHandler.ClientId = config.ImgurClientSecret;
+
+			commands = new Dictionary<string, Task>()
+			{
+				{ "copy_to_clipboard", new Task( () => CopyToClipboard(_filename)) },
+				{ "save_to_file", new Task( () => SaveToFile(_filename)) },
+				{ "upload_to_web", new Task( () => UploadToWeb(_filename)) },
+			};
 		}
 	}
 }

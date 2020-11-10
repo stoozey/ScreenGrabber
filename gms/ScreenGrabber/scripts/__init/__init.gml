@@ -1,6 +1,12 @@
 globalvar config;
 config =
 {
+	after_screenshot:
+	{
+		skip_dialog_menu: DialogAction.Null, // if this is set to an action, it will auto-perform it without using the dialogm menu
+		copy_to_clipboard: true,
+	},
+	
 	visual:
 	{
 		fancy_drag_box: true,
@@ -19,7 +25,16 @@ switch (file_exists(FILE_CONFIG))
 			var _json = file_text_read_string(_file);
 		file_text_close(_file);
 		
-		config = snap_from_json(_json);
+		// this makes sure that we dont crash because things were missing
+		var _savedConfig = snap_from_json(_json);
+		var _configKeys = variable_struct_get_names(_savedConfig);
+		for (var i = 0; i < variable_struct_names_count(_savedConfig); i++)
+		{
+			var _key = _configKeys[i];
+			if (!variable_struct_exists(config, _key)) continue;
+			
+			variable_struct_set(config, _key, variable_struct_get(_savedConfig, _key));
+		}
 	} break;
 	
 	case false:
