@@ -53,16 +53,32 @@ namespace post_call
 		{
 			Console.WriteLine("Trying to save to file...");
 			
-			using (SaveFileDialog sFile = new SaveFileDialog())
+			var dateString = ((config.UseAmericanDates) ? "MM-dd-yyyy hh-mm-ss tt" : "dd-MM-yyyy hh-mm-ss tt");
+			var fileExportName = "ScreenGrabber - " + DateTime.Now.ToString(dateString) + ".png";
+			
+			if (!config.ShowFileSaveDialog)
 			{
-				//sFile.InitialDirectory = "";
-				sFile.Title = "Select where to save the screenshot";
-				sFile.AddExtension = true;
-				sFile.DefaultExt = "png";
-				sFile.Filter = "|All files *.*";
+				var picturesDir = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures)+ @"\ScreenGrabber\";
+				if (!Directory.Exists(picturesDir))
+					Directory.CreateDirectory(picturesDir);
+
+				var fileExportPath = picturesDir + fileExportName;
+				File.Copy(_filename, fileExportPath);
 				
-				var _dateString = ((config.UseAmericanDates) ? "MM-dd-yyyy hh-mm-ss tt" : "dd-MM-yyyy hh-mm-ss tt");
-				sFile.FileName = "ScreenGrabber - " + DateTime.Now.ToString(_dateString);
+				if (!config.OpenExplorerAfterSave) return;
+				Process.Start("explorer.exe", fileExportPath);
+				
+				return;
+			}
+			
+			using (var sFile = new SaveFileDialog())
+			{
+				sFile.InitialDirectory	= Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+				sFile.AddExtension		= true;
+				sFile.DefaultExt		= "png";
+				sFile.FileName			= fileExportName;
+				sFile.Filter			= "|All files *.*";
+				sFile.Title				= "Select where to save the screenshot";
 
 				var result = sFile.ShowDialog();
 				if (result == DialogResult.Cancel)
@@ -89,8 +105,7 @@ namespace post_call
 				Console.WriteLine("File does not exist!");
 				return;
 			}
-					
-			//ImgurHandler.PublishToImgur(_filename);
+			
 			ImgurHandler.UploadToImgur(_filename);
 
 		}
@@ -105,9 +120,9 @@ namespace post_call
 
 			commands = new Dictionary<string, Task>()
 			{
-				{ "copy_to_clipboard", new Task( () => CopyToClipboard(_filename)) },
-				{ "save_to_file", new Task( () => SaveToFile(_filename)) },
-				{ "upload_to_web", new Task( () => UploadToWeb(_filename)) },
+				{ "copy_to_clipboard",	new Task( () => CopyToClipboard(_filename)) },
+				{ "save_to_file",		new Task( () => SaveToFile(_filename)) },
+				{ "upload_to_web",		new Task( () => UploadToWeb(_filename)) },
 			};
 		}
 	}

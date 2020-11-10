@@ -4,10 +4,9 @@ using System.IO;
 using System.Net;
 using System.Xml.Linq;
 
-
 namespace post_call.Classes
 {
-	public class ImgurHandler
+	public static class ImgurHandler
 	{
 		public static string ClientId;
 

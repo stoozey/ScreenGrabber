@@ -15,6 +15,8 @@ namespace post_call.Interfaces
 
 		[Option(Alias = "open_explorer_after_save")]
 		bool OpenExplorerAfterSave { get; }
-		//string api_imgur_client_secret { get; }
+		
+		[Option(Alias = "show_file_save_dialog")]
+		bool ShowFileSaveDialog { get; }
 	}
 }
