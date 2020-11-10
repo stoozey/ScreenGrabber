@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.IO;
 using System.Net;
-using System.Net.Http;
-using Imgur.API.Authentication;
-using Imgur.API.Endpoints;
+using System.Xml.Linq;
+
 
 namespace post_call.Classes
 {
@@ -11,24 +11,20 @@ namespace post_call.Classes
 	{
 		public static string ClientId;
 
-		private static HttpClient client;
-		private static ApiClient apiClient;
-		
-		public static async void PublishToImgur(string _filename)
+		public static void UploadToImgur(string _filename)
 		{
-			client		= new HttpClient();
-			apiClient	= new ApiClient(ClientId);
-			
-			Console.WriteLine("Starting...");
+			using (var w = new WebClient())
+			{
+				var values = new NameValueCollection
+				{
+					{ "oauth_consumer_key", "f39da0f79c4e379edfefe79ccab29c8a" },
+					{ "photo", Convert.ToBase64String(File.ReadAllBytes(_filename)) }
+				};
 
-			var fileStream = File.OpenRead(_filename);
-			Console.WriteLine("1...");
-			var imageEndpoint = new ImageEndpoint(apiClient, client);
-			Console.WriteLine("2...");
-			var imageUpload = await imageEndpoint.UploadImageAsync(fileStream);
-			
-			Console.WriteLine("Upload complete");
-			Console.WriteLine(imageUpload.Link);
+				var response = w.UploadValues("https://up.flickr.com/services/upload", values);
+
+				Console.WriteLine(XDocument.Load(new MemoryStream(response)));
+			}
 		}
 	}
 }
