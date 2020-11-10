@@ -14,6 +14,7 @@ switch (file_exists(FILE_CONFIG))
 {
 	case true:
 	{
+		print("loading save");
 		var _file = file_text_open_read(FILE_CONFIG);
 			var _json = file_text_read_string(_file);
 		file_text_close(_file);

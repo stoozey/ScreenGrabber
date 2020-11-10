@@ -68,3 +68,6 @@ stateFunctions[UiState.Disabled] = function()
 {
 	
 }
+
+
+funcInit();

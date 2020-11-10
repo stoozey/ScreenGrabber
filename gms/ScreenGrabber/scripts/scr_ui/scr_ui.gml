@@ -37,3 +37,9 @@ function UiTweenHoverOff(_ui)
 {
 	UiDoScaleTween(_ui, 1, TWEEN_MODE_ONCE, 0.15);
 }
+
+function UiCheckboxClicked(_ui)
+{
+	_ui.toggle = !_ui.toggle;
+	UiTweenClicked(_ui);
+}

@@ -26,6 +26,7 @@
     {"isDnD":false,"eventNum":0,"eventType":8,"collisionObjectId":null,"parent":{"name":"obj_ui_base","path":"objects/obj_ui_base/obj_ui_base.yy",},"resourceVersion":"1.0","name":"","tags":[],"resourceType":"GMEvent",},
   ],
   "properties": [
+    {"varType":0,"value":"FunctionNull","rangeEnabled":false,"rangeMin":0.0,"rangeMax":10.0,"listItems":[],"multiselect":false,"filters":[],"resourceVersion":"1.0","name":"funcInit","tags":[],"resourceType":"GMObjectProperty",},
     {"varType":0,"value":"UiTweenClicked","rangeEnabled":false,"rangeMin":0.0,"rangeMax":10.0,"listItems":[],"multiselect":false,"filters":[],"resourceVersion":"1.0","name":"funcClicked","tags":[],"resourceType":"GMObjectProperty",},
     {"varType":0,"value":"UiTweenHoverOn","rangeEnabled":false,"rangeMin":0.0,"rangeMax":10.0,"listItems":[],"multiselect":false,"filters":[],"resourceVersion":"1.0","name":"funcHoverOn","tags":[],"resourceType":"GMObjectProperty",},
     {"varType":0,"value":"UiTweenHoverOff","rangeEnabled":false,"rangeMin":0.0,"rangeMax":10.0,"listItems":[],"multiselect":false,"filters":[],"resourceVersion":"1.0","name":"funcHoverOff","tags":[],"resourceType":"GMObjectProperty",},
