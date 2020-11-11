@@ -18,7 +18,6 @@ function UiDoScaleTween(_ui, _scale, _mode, _time)
 	if (TweenExists(_ui.tweens.mouseEvents))
 		TweenFinish(_ui.tweens.mouseEvents);
 	
-		
 	tweens.mouseEvents = TweenFire(_ui, EaseOutBack, _mode, true, 0, _time, "scale", scale, _scale);
 }
 
