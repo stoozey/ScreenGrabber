@@ -5,14 +5,19 @@ var _pos	= UiGetPos(id);
 
 draw_9slice(_pos[X], _pos[Y], _scale[X], _scale[Y], nineSliceSprite, 0, GetUiColour(), 1, alpha);
 
-var _boxPos = [ _pos[X] + boxPos + ((_scale[Y] - image_yscale) * 0.5), _pos[Y] + boxPos + ((_scale[Y] - image_yscale) * 0.5) ]
-draw_9slice(_boxPos[X], _boxPos[Y], boxSize, boxSize, spr_9slice_box_small, 0, ((toggle) ? favColour.dark : favColour.background), 1, alpha);
+var _boxScaleReversed = (1 - boxScale);
+var _boxPos = [
+	(_pos[X] + boxPos + ((_scale[Y] - image_yscale) * 0.5)) + ((boxSize * _boxScaleReversed) * 0.5),
+	(_pos[Y] + boxPos + ((_scale[Y] - image_yscale) * 0.5)) + ((boxSize * _boxScaleReversed) * 0.5),
+];
+
+draw_9slice(_boxPos[X], _boxPos[Y], boxSize * boxScale, boxSize * boxScale, spr_9slice_box_small, 0, ((toggle) ? favColour.dark : favColour.background), 1, alpha);
 
 var _iconSize			= sprite_get_width(checkboxSprite);
-var _iconSizeAdjusted	= _iconSize * 0.6;
+var _iconSizeAdjusted	= (_iconSize * 0.6) * boxScale;
 var _iconPos			= [ _boxPos[X] + _iconSizeAdjusted, _boxPos[Y] + _iconSizeAdjusted, ];
 
-draw_sprite_ext(checkboxSprite, toggle, _iconPos[X], _iconPos[Y], 1, 1, 0, ((toggle) ? favColour.background : favColour.dark), alpha);
+draw_sprite_ext(checkboxSprite, toggle, _iconPos[X], _iconPos[Y], boxScale, boxScale, 0, ((toggle) ? favColour.background : favColour.dark), alpha);
 
 
 if (text == "") exit;

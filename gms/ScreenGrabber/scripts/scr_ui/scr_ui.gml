@@ -16,21 +16,20 @@ function UiDoScaleTween(_ui, _scale, _mode, _time)
 		variable_struct_set(_ui.tweens, "mouseEvents", TweenNull());
 	
 	if (TweenExists(_ui.tweens.mouseEvents))
-	{
 		TweenFinish(_ui.tweens.mouseEvents);
-	}
+	
 		
 	tweens.mouseEvents = TweenFire(_ui, EaseOutBack, _mode, true, 0, _time, "scale", scale, _scale);
 }
 
 function UiTweenClicked(_ui)
 {
-	UiDoScaleTween(_ui, 1.15, TWEEN_MODE_BOUNCE, 0.08);
+	UiDoScaleTween(_ui, 1.1, TWEEN_MODE_BOUNCE, 0.08);
 }
 
 function UiTweenHoverOn(_ui)
 {
-	UiDoScaleTween(_ui, 1.1, TWEEN_MODE_ONCE, 0.2);
+	UiDoScaleTween(_ui, 1.05, TWEEN_MODE_ONCE, 0.2);
 }
 
 function UiTweenHoverOff(_ui)
@@ -41,5 +40,11 @@ function UiTweenHoverOff(_ui)
 function UiCheckboxClicked(_ui)
 {
 	_ui.toggle = !_ui.toggle;
+	
 	UiTweenClicked(_ui);
+	
+	if (TweenExists(boxScaleTween))
+		TweenFinish(boxScaleTween);
+	
+	boxScaleTween = TweenFire(_ui, EaseOutBack, TWEEN_MODE_BOUNCE, true, 0, 0.15, "boxScale", 0.9, 1);
 }

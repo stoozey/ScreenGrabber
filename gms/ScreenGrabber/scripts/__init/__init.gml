@@ -3,8 +3,8 @@ config =
 {
 	after_screenshot:
 	{
-		skip_dialog_menu: DialogAction.Null, // if this is set to an action, it will auto-perform it without using the dialogm menu
-		copy_to_clipboard: true,
+		skip_dialog_menu:	DialogAction.Null, // if this is set to an action, it will auto-perform it without using the dialog menu
+		copy_to_clipboard:	true, // if true any action will also copy to clipboard
 	},
 	
 	visual:
