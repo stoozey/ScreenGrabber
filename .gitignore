@@ -1,10 +1,17 @@
 assets/photoshop/export*
+
 cs/post_call/.idea/**
 cs/post_call/.vs/**
 cs/post_call/post_call/bin/Debug/*
+cs/post_call/post_call/bin/Release/*
 cs/post_call/post_call/obj/Debug/*
-cs/tray/tray/bin/Debug/*
-cs/tray/tray/obj/Debug/*
+cs/post_call/post_call/obj/Release/*
+
 cs/tray/.idea/**
 cs/tray/.vs/**
+cs/tray/tray/bin/Debug/*
+cs/tray/tray/bin/Release/*
+cs/tray/tray/obj/Debug/*
+cs/tray/tray/obj/Release/*
+cs/tray/tray/data/*
 
