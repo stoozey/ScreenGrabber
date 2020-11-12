@@ -1,19 +1,10 @@
 assets/photoshop/export*
 cs/post_call/.idea/**
-cs/post_call/bin/**
-cs/post_call/obj/**
+cs/post_call/.vs/**
 cs/post_call/post_call/bin/Debug/*
 cs/post_call/post_call/obj/Debug/*
 cs/tray/tray/bin/Debug/*
 cs/tray/tray/obj/Debug/*
-cs/tray/.vs/tray/v16/Server/sqlite3/storage.ide
-cs/tray/.vs/tray/v16/Server/sqlite3/storage.ide
-cs/tray/.vs/tray/v16/Server/sqlite3/storage.ide
-cs/tray/.vs/tray/v16/Server/sqlite3/storage.ide
-cs/tray/.vs/tray/v16/Server/sqlite3/storage.ide-shm
-cs/tray/.vs/tray/v16/Server/sqlite3/storage.ide-wal
-cs/tray/.vs/tray/v16/Server/sqlite3/storage.ide
-cs/tray/.vs/tray/v16/Server/sqlite3/storage.ide
-cs/tray/.vs/tray/v16/Server/sqlite3/storage.ide
-
+cs/tray/.idea/**
+cs/tray/.vs/**
 
