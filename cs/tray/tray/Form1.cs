@@ -22,7 +22,7 @@ namespace tray
             if (success) return;
 
             ShowError(
-                "Something is already hooked to the printscreen button.\nPlease close that application and restart this to use the shortcut."
+                "Something is already hooked to the PrintScreen button.\nPlease close that application and restart this to use the shortcut."
             );
         }
 

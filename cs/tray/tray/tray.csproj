@@ -79,7 +79,7 @@
     <None Include="data\data.win">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="data\options.ini">
+    <None Include="data\post_call_config.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
@@ -113,9 +113,7 @@
     <Content Include="data\grab_client.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\post_call.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="data\post_call.exe" />
     <Content Include="icon_main.ico" />
     <None Include="Resources\icon_main.ico" />
     <None Include="Resources\icon_settings.png" />

@@ -87,3 +87,27 @@ function UiCheckboxShowSaveAsDialogClicked(_ui)
 	
 	WriteIni("show_file_save_dialog", _ui.toggle);
 }
+
+function UiCheckboxOpenFileAFterSaveInit(_ui)
+{
+	toggle = GetIni("open_explorer_after_save", true);
+}
+
+function UiCheckboxOpenFileAFterSaveClicked(_ui)
+{
+	UiCheckboxClicked(_ui);
+	
+	WriteIni("open_explorer_after_save", _ui.toggle);
+}
+
+function UiCheckboxUseAmericanDatesInit(_ui)
+{
+	toggle = GetIni("use_american_dates", true);
+}
+
+function UiCheckboxUseAmericanDatesClicked(_ui)
+{
+	UiCheckboxClicked(_ui);
+	
+	WriteIni("use_american_dates", _ui.toggle);
+}

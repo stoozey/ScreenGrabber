@@ -53,6 +53,8 @@ namespace post_call
 			}
 		}
 
+		#region Commands
+		
 		private static void CopyToClipboard(string _filename)
 		{
 			Console.WriteLine("Trying to copy to clipboard...");
@@ -78,9 +80,8 @@ namespace post_call
 
 				var fileExportPath = picturesDir + fileExportName;
 				File.Copy(_filename, fileExportPath);
-				
-				if (!config.OpenExplorerAfterSave) return;
-				Process.Start("explorer.exe", fileExportPath);
+
+				if (config.OpenExplorerAfterSave) OpenImageInExplorer(fileExportPath);
 				
 				return;
 			}
@@ -103,8 +104,7 @@ namespace post_call
 
 				File.Copy(_filename, sFile.FileName);
 
-				if (!config.OpenExplorerAfterSave) return;
-				Process.Start("explorer.exe", sFile.FileName);
+				if (config.OpenExplorerAfterSave) OpenImageInExplorer(sFile.FileName);
 			}
 			
 			Console.WriteLine("Success!");
@@ -119,6 +119,17 @@ namespace post_call
 			
 			Console.WriteLine("Success!");
 		}
+		
+		#endregion
+		
+		#region Helpers
+
+		private static void OpenImageInExplorer(string _filename)
+			=> Process.Start("explorer.exe", $"/select, \"{_filename}\"");
+
+		#endregion
+		
+		#region Init
 		
 		private static void InitValues(string _filename)
 		{
@@ -135,5 +146,7 @@ namespace post_call
 				{ _CMD_UPLOAD_TO_WEB,		new Task( () => UploadToWeb(_filename).Wait() ) },
 			};
 		}
+		
+		#endregion
 	}
 }

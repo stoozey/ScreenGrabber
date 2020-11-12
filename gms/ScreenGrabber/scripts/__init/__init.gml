@@ -13,7 +13,7 @@ config =
 		favourite_colour: { h: 110, s: 190, l: 187 },
 	},
 	
-	debug: true,
+	debug: false,
 };
 		
 switch (file_exists(FILE_CONFIG))
