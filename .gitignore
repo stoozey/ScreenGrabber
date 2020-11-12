@@ -1,5 +1,7 @@
 assets/photoshop/export*
 
+gms/ScreenGrabber/datafiles/*
+
 cs/post_call/.idea/**
 cs/post_call/.vs/**
 cs/post_call/post_call/bin/Debug/*
