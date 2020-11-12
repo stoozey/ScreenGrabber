@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\App.cs" />
+    <Compile Include="Classes\MenuStripRenderer.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +117,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="icon_main.ico" />
+    <None Include="Resources\icon_main.ico" />
+    <None Include="Resources\icon_settings.png" />
+    <None Include="Resources\icon_info.png" />
+    <None Include="Resources\icon_exit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

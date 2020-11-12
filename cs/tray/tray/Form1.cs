@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Input;
-using GlobalHotKey;
 using tray.Classes;
 
 namespace tray
@@ -21,6 +12,8 @@ namespace tray
         public Form1()
         {
             InitializeComponent();
+
+            contextMenuStrip.Renderer = new MenuStripRenderer();
         }
 
         private void Form1_Load(object sender, EventArgs e)
