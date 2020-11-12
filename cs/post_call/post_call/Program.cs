@@ -8,12 +8,19 @@ using System.Windows.Media.Imaging;
 using Config.Net;
 using post_call.Classes;
 using post_call.Interfaces;
+
 using Clipboard = System.Windows.Clipboard;
 
 namespace post_call
 {
 	internal static class Program
 	{
+		private const string _CMD_COPY_TO_CLIPBOARD	= "copy_to_clipboard";
+		private const string _CMD_SAVE_TO_FILE		= "save_to_file";
+		private const string _CMD_UPLOAD_TO_WEB		= "upload_to_web";
+		
+		private static ImgurHandler imgurHandler;
+		
 		private static IConfig config;
 		private static Dictionary<string, Task> commands;
 		
@@ -23,12 +30,25 @@ namespace post_call
 			if (_args.Length < 2) return;
 			
 			var filename = _args[0];
+			if (!File.Exists(filename))
+			{
+				Console.WriteLine("File does not exist!");
+				return;
+			}
+			
 			InitValues(filename);
 
 			foreach (var commandName in _args)
 			{
 				if (commandName == filename) continue;
 
+				// cheap workaround for async stuff in a console app, be ashamed of yourself, jo.
+				if (commandName == _CMD_UPLOAD_TO_WEB)
+				{
+					UploadToWeb(filename).GetAwaiter().GetResult();
+					continue;
+				}
+				
 				commands[commandName].RunSynchronously();
 			}
 		}
@@ -36,13 +56,7 @@ namespace post_call
 		private static void CopyToClipboard(string _filename)
 		{
 			Console.WriteLine("Trying to copy to clipboard...");
-			
-			if (!File.Exists(_filename))
-			{
-				Console.WriteLine("File does not exist!");
-				return;
-			}
-					
+
 			BitmapSource bSource = new BitmapImage(new Uri(_filename));
 			Clipboard.SetImage(bSource);
 					
@@ -92,22 +106,18 @@ namespace post_call
 				if (!config.OpenExplorerAfterSave) return;
 				Process.Start("explorer.exe", sFile.FileName);
 			}
-
+			
 			Console.WriteLine("Success!");
 		}
 
-		private static void UploadToWeb(string _filename)
+		private static async Task UploadToWeb(string _filename)
 		{
 			Console.WriteLine("Trying to upload to Imgur...");
-					
-			if (!File.Exists(_filename))
-			{
-				Console.WriteLine("File does not exist!");
-				return;
-			}
-			
-			ImgurHandler.UploadToImgur(_filename);
 
+			var imageUrl = await imgurHandler.UploadToImgur(_filename);
+			Process.Start(imageUrl);
+			
+			Console.WriteLine("Success!");
 		}
 		
 		private static void InitValues(string _filename)
@@ -116,13 +126,13 @@ namespace post_call
 				.UseIniFile($@"{Directory.GetCurrentDirectory()}\post_call_config.ini")
 				.Build();
 			
-			ImgurHandler.ClientId = config.ImgurClientSecret;
+			imgurHandler = new ImgurHandler(config.ImgurClientId);
 
 			commands = new Dictionary<string, Task>()
 			{
-				{ "copy_to_clipboard",	new Task( () => CopyToClipboard(_filename)) },
-				{ "save_to_file",		new Task( () => SaveToFile(_filename)) },
-				{ "upload_to_web",		new Task( () => UploadToWeb(_filename)) },
+				{ _CMD_COPY_TO_CLIPBOARD,	new Task( () => CopyToClipboard(_filename)) },
+				{ _CMD_SAVE_TO_FILE,		new Task( () => SaveToFile(_filename)) },
+				{ _CMD_UPLOAD_TO_WEB,		new Task( () => UploadToWeb(_filename).Wait() ) },
 			};
 		}
 	}

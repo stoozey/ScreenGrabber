@@ -1,0 +1,813 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Imgur.API</name>
+    </assembly>
+    <members>
+        <member name="T:Imgur.API.Authentication.ApiClient">
+            <summary>
+            The client that will be used for authentication, containing ClientId, ClientSecret, etc.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Authentication.ApiClient.ClientId">
+            <summary>
+            The client id obtained during application registration.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Authentication.ApiClient.ClientSecret">
+            <summary>
+            The client secret obtained during application registration.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Authentication.ApiClient.OAuth2Token">
+            <summary>
+            An OAuth2 Token used for actions against a user's account.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Authentication.ApiClient.BaseAddress">
+            <summary>
+            The Base Api Address. Typically https://api.imgur.com/3/
+            </summary>
+        </member>
+        <member name="M:Imgur.API.Authentication.ApiClient.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the ApiClient.
+            Used for public requests (image info, user comments).
+            </summary>
+            <param name="clientId"></param>
+        </member>
+        <member name="M:Imgur.API.Authentication.ApiClient.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the ApiClient.
+            Used for registering an OAuth Token.
+            </summary>
+            <param name="clientId"></param>
+            <param name="clientSecret"></param>
+        </member>
+        <member name="M:Imgur.API.Authentication.ApiClient.SetOAuth2Token(Imgur.API.Models.IOAuth2Token)">
+            <summary>
+            Sets the OAuth2Token to be used for authentication.
+            </summary>
+            <param name="token"></param>
+        </member>
+        <member name="T:Imgur.API.Authentication.IApiClient">
+            <summary>
+            The client that will be used for authentication, containing ClientId, ClientSecret, etc.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Authentication.IApiClient.ClientId">
+            <summary>
+            The client id obtained during application registration.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Authentication.IApiClient.ClientSecret">
+            <summary>
+            The client secret obtained during application registration.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Authentication.IApiClient.OAuth2Token">
+            <summary>
+            An OAuth2 Token used for actions against a user's account.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Authentication.IApiClient.BaseAddress">
+            <summary>
+            The Base Api Address. Typically https://api.imgur.com/3/
+            </summary>
+        </member>
+        <member name="M:Imgur.API.Authentication.IApiClient.SetOAuth2Token(Imgur.API.Models.IOAuth2Token)">
+            <summary>
+            Sets the OAuth2Token to be used for authentication.
+            </summary>
+            <param name="token"></param>
+        </member>
+        <member name="M:Imgur.API.Converters.ResponseConverter.ConvertResponse``1(System.String)">
+            <summary>
+            Parses the string response from the endpoint into an expected type T.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="response"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Imgur.API.Converters.ResponseConverter.ConvertOAuth2TokenResponse(System.String)">
+            <summary>
+            Parses the string response from the endpoint into an OAuth2Token.
+            </summary>
+            <param name="response"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Imgur.API.Endpoints.EndpointBase">
+            <summary>
+            Endpoint base implementation.
+            </summary>
+        </member>
+        <member name="M:Imgur.API.Endpoints.EndpointBase.#ctor(Imgur.API.Authentication.IApiClient,System.Net.Http.HttpClient)">
+            <summary>
+            Declares a new instance of an endpoint.
+            </summary>
+            <param name="apiClient"></param>
+            <param name="httpClient"></param>
+        </member>
+        <member name="T:Imgur.API.Endpoints.IEndpoint">
+            <summary>
+            Basic Endpoint.
+            </summary>
+        </member>
+        <member name="T:Imgur.API.Endpoints.IImageEndpoint">
+            <summary>
+            Image Endpoint.
+            </summary>
+        </member>
+        <member name="M:Imgur.API.Endpoints.IImageEndpoint.GetImageAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get information about an image.
+            </summary>
+            <param name="imageId"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Imgur.API.Endpoints.IImageEndpoint.UploadImageAsync(System.IO.Stream,System.String,System.String,System.String,System.String,System.IProgress{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Upload a new image.
+            </summary>
+            <param name="image"></param>
+            <param name="album"></param>
+            <param name="name"></param>
+            <param name="title"></param>
+            <param name="description"></param>
+            <param name="progress"></param>
+            <param name="bufferSize"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Imgur.API.Endpoints.IImageEndpoint.UploadImageAsync(System.String,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Upload a new image.
+            </summary>
+            <param name="imageUrl"></param>
+            <param name="album"></param>
+            <param name="name"></param>
+            <param name="title"></param>
+            <param name="description"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Imgur.API.Endpoints.IImageEndpoint.UploadVideoAsync(System.IO.Stream,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.IProgress{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Upload a new image.
+            </summary>
+            <param name="video"></param>
+            <param name="album"></param>
+            <param name="type"></param>
+            <param name="name"></param>
+            <param name="title"></param>
+            <param name="description"></param>
+            <param name="disableAudio"></param>
+            <param name="progress"></param>
+            <param name="bufferSize"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Imgur.API.Endpoints.IImageEndpoint.DeleteImageAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Deletes an image.
+            </summary>
+            <param name="imageId"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Imgur.API.Endpoints.IImageEndpoint.UpdateImageAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Updates the title or description of an image.
+            </summary>
+            <param name="imageId"></param>
+            <param name="title"></param>
+            <param name="description"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Imgur.API.Endpoints.IImageEndpoint.FavoriteImageAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Favorite an image with the given ID. The user is required to be logged in to favorite the image.
+            </summary>
+            <param name="imageId"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Imgur.API.Endpoints.ImageEndpoint">
+            <summary>
+            Image Endpoint.
+            </summary>
+        </member>
+        <member name="M:Imgur.API.Endpoints.ImageEndpoint.#ctor(Imgur.API.Authentication.IApiClient,System.Net.Http.HttpClient)">
+            <summary>
+            Declares a new instance of the endpoint.
+            </summary>
+            <param name="apiClient"></param>
+            <param name="httpClient"></param>
+        </member>
+        <member name="M:Imgur.API.Endpoints.ImageEndpoint.GetImageAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Get information about an image.
+            </summary>
+            <param name="imageId"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Imgur.API.Endpoints.ImageEndpoint.UploadImageAsync(System.IO.Stream,System.String,System.String,System.String,System.String,System.IProgress{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Upload a new image.
+            </summary>
+            <param name="image"></param>
+            <param name="album"></param>
+            <param name="name">The image filename.</param>
+            <param name="title"></param>
+            <param name="description"></param>
+            <param name="progress"></param>
+            <param name="bufferSize"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Imgur.API.Endpoints.ImageEndpoint.UploadImageAsync(System.String,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Upload a new image.
+            </summary>
+            <param name="imageUrl"></param>
+            <param name="album"></param>
+            <param name="name">The image filename.</param>
+            <param name="title"></param>
+            <param name="description"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Imgur.API.Endpoints.ImageEndpoint.UploadVideoAsync(System.IO.Stream,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.IProgress{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Upload a new image.
+            </summary>
+            <param name="video"></param>
+            <param name="album"></param>
+            <param name="type"></param>
+            <param name="name">The image filename.</param>
+            <param name="title"></param>
+            <param name="description"></param>
+            <param name="disableAudio"></param>
+            <param name="progress"></param>
+            <param name="bufferSize"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Imgur.API.Endpoints.ImageEndpoint.DeleteImageAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Deletes an image.
+            </summary>
+            <param name="imageId"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Imgur.API.Endpoints.ImageEndpoint.UpdateImageAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Updates the title or description of an image.
+            </summary>
+            <param name="imageId"></param>
+            <param name="title"></param>
+            <param name="description"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Imgur.API.Endpoints.ImageEndpoint.FavoriteImageAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Favorite an image with the given ID. The user is required to be logged in to favorite the image.
+            </summary>
+            <param name="imageId"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Imgur.API.Endpoints.IOAuth2Endpoint">
+            <summary>
+            Authorizes account access.
+            </summary>
+        </member>
+        <member name="M:Imgur.API.Endpoints.IOAuth2Endpoint.GetAuthorizationUrl(System.String)">
+            <summary>
+            Creates an authorization url that can be used to authorize access to a user's account.
+            </summary>
+            <param name="state">Any state which may be useful to your application upon receipt of the response.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Imgur.API.Endpoints.IOAuth2Endpoint.GetTokenAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            If a user has authorized their account but you no longer have a valid access token for them,
+            then a new one can be generated by using the refresh token.
+            </summary>
+            <param name="refreshToken"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Imgur.API.Endpoints.OAuth2Endpoint">
+            <summary>
+            Authorizes account access.
+            </summary>
+        </member>
+        <member name="M:Imgur.API.Endpoints.OAuth2Endpoint.#ctor(Imgur.API.Authentication.IApiClient,System.Net.Http.HttpClient)">
+            <summary>
+            Declares a new instance of the endpoint.
+            </summary>
+            <param name="apiClient"></param>
+            <param name="httpClient"></param>
+        </member>
+        <member name="M:Imgur.API.Endpoints.OAuth2Endpoint.GetAuthorizationUrl(System.String)">
+            <summary>
+            Creates an authorization url that can be used to authorize access to a user's account.
+            </summary>
+            <param name="state">Any state which may be useful to your application upon receipt of the response.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Imgur.API.Endpoints.OAuth2Endpoint.GetTokenAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            If a user has authorized their account but you no longer have a valid access token for them,
+            then a new one can be generated by using the refresh token.
+            </summary>
+            <param name="refreshToken"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Imgur.API.ImgurException">
+            <summary>
+            The exception that is thrown when an error is found in a response from an Imgur endpoint.
+            </summary>
+        </member>
+        <member name="M:Imgur.API.ImgurException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the ImgurException class with a specified error message.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:Imgur.API.ImgurException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the ImgurException class with a specified error message.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+            <param name="innerException">The exception that is the cause of the current exception.</param>
+        </member>
+        <member name="T:Imgur.API.Models.Basic`1">
+            <summary>
+            A response from the API.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Imgur.API.Models.Basic`1.Data">
+            <summary>
+            The data returned from the response.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Basic`1.Status">
+            <summary>
+            HTTP Status Code.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Basic`1.Success">
+            <summary>
+            Was the request successful.
+            </summary>
+        </member>
+        <member name="T:Imgur.API.Models.Error">
+            <summary>
+            Error Information.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Error.Message">
+            <summary>
+            Friendly Message.
+            </summary>
+        </member>
+        <member name="T:Imgur.API.Models.IBasic`1">
+            <summary>
+            A response from the API.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Imgur.API.Models.IBasic`1.Data">
+            <summary>
+            The data returned from the response.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IBasic`1.Status">
+            <summary>
+            HTTP Status Code.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IBasic`1.Success">
+            <summary>
+            Was the request successful.
+            </summary>
+        </member>
+        <member name="T:Imgur.API.Models.IDataModel">
+            <summary>
+            Base Interface for models.
+            </summary>
+        </member>
+        <member name="T:Imgur.API.Models.IError">
+            <summary>
+            Error Information.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IError.Message">
+            <summary>
+            Friendly Message.
+            </summary>
+        </member>
+        <member name="T:Imgur.API.Models.IImage">
+            <summary>
+            An image.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.Id">
+            <summary>
+            The ID for the image.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.Title">
+            <summary>
+            The title of the image.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.Description">
+            <summary>
+            Description of the image.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.DateTime">
+            <summary>
+            Utc timestamp of when the image was uploaded.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.Type">
+            <summary>
+            Image MIME type.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.Animated">
+            <summary>
+            Is the image animated.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.Width">
+            <summary>
+            The width of the image in pixels.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.Height">
+            <summary>
+            The height of the image in pixels.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.Size">
+            <summary>
+            The size of the image in bytes.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.Views">
+            <summary>
+            The number of image views.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.Bandwidth">
+            <summary>
+            Bandwidth consumed by the image in bytes.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.Vote">
+            <summary>
+            The current user's vote on the album. null if not signed in, if the user hasn't voted on it, or if not submitted to
+            the gallery.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.Favorite">
+            <summary>
+            Indicates if the current user favorited the image. Defaults to false if not signed in.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.Nsfw">
+            <summary>
+            Indicates if the image has been marked as nsfw or not. Defaults to null if information is not available.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.Section">
+            <summary>
+            If the image has been categorized then this will contain the section the image belongs in. (funny, cats,
+            adviceanimals, wtf, etc)
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.AccountUrl">
+            <summary>
+            The account url.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.AccountId">
+            <summary>
+            The account id.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.IsAd">
+            <summary>
+            True if the image is an ad, false if otherwise.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.InMostViral">
+            <summary>
+            True if the image is in most viral, false if otherwise.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.Tags">
+            <summary>
+            List of tags.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.AdType">
+            <summary>
+            The Ad Type.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.AdUrl">
+            <summary>
+            The ad url.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.InGallery">
+            <summary>
+            True if the image has been submitted to the gallery, false if otherwise.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.DeleteHash">
+            <summary>
+            OPTIONAL, the deletehash, if you're logged in as the image owner.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.Name">
+            <summary>
+            OPTIONAL, the original filename, if you're logged in as the image owner.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImage.Link">
+            <summary>
+            The direct link to the the image. (Note: if fetching an animated GIF that was over 20MB in original size, a .gif
+            thumbnail will be returned)
+            </summary>
+        </member>
+        <member name="T:Imgur.API.Models.IImgurError">
+            <summary>
+            An error returned after an Endpoint request.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImgurError.Error">
+            <summary>
+            A description of the error.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImgurError.Method">
+            <summary>
+            The HttpMethod that was used to send the request.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImgurError.Request">
+            <summary>
+            The request Uri that the error came from.
+            </summary>
+        </member>
+        <member name="T:Imgur.API.Models.IImgurErrorDetail">
+            <summary>
+            An error returned after an Endpoint request.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IImgurErrorDetail.Error">
+            <summary>
+            A description of the error.
+            </summary>
+        </member>
+        <member name="T:Imgur.API.Models.Image">
+            <summary>
+            An image.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.Id">
+            <summary>
+            The ID for the image.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.Title">
+            <summary>
+            The title of the image.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.Description">
+            <summary>
+            Description of the image.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.DateTime">
+            <summary>
+            Utc timestamp of when the image was uploaded.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.Type">
+            <summary>
+            Image MIME type.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.Animated">
+            <summary>
+            Is the image animated.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.Width">
+            <summary>
+            The width of the image in pixels.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.Height">
+            <summary>
+            The height of the image in pixels.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.Size">
+            <summary>
+            The size of the image in bytes.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.Views">
+            <summary>
+            The number of image views.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.Bandwidth">
+            <summary>
+            Bandwidth consumed by the image in bytes.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.Vote">
+            <summary>
+            The current user's vote on the album. null if not signed in, if the user hasn't voted on it, or if not submitted to
+            the gallery.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.Favorite">
+            <summary>
+            Indicates if the current user favorited the image. Defaults to false if not signed in.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.Nsfw">
+            <summary>
+            Indicates if the image has been marked as nsfw or not. Defaults to null if information is not available.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.Section">
+            <summary>
+            If the image has been categorized then this will contain the section the image belongs in. (funny, cats,
+            adviceanimals, wtf, etc)
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.AccountUrl">
+            <summary>
+            The account url.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.AccountId">
+            <summary>
+            The account id.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.IsAd">
+            <summary>
+            True if the image is an ad, false if otherwise.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.InMostViral">
+            <summary>
+            True if the image is in most viral, false if otherwise.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.Tags">
+            <summary>
+            List of tags.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.AdType">
+            <summary>
+            The Ad Type.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.AdUrl">
+            <summary>
+            The ad url.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.InGallery">
+            <summary>
+            True if the image has been submitted to the gallery, false if otherwise.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.DeleteHash">
+            <summary>
+            OPTIONAL, the deletehash, if you're logged in as the image owner.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.Name">
+            <summary>
+            OPTIONAL, the original filename, if you're logged in as the image owner.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.Image.Link">
+            <summary>
+            The direct link to the the image. (Note: if fetching an animated GIF that was over 20MB in original size, a .gif
+            thumbnail will be returned)
+            </summary>
+        </member>
+        <member name="T:Imgur.API.Models.ImgurError">
+            <summary>
+            An error returned after an Endpoint request.
+            </summary>
+        </member>
+        <member name="T:Imgur.API.Models.ImgurErrorDetail">
+            <summary>
+            An error returned after an Endpoint request.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.ImgurErrorDetail.Error">
+            <summary>
+            A description of the error.
+            </summary>
+        </member>
+        <member name="T:Imgur.API.Models.IOAuth2Token">
+            <summary>
+            An OAuth2 Token used for actions against a user's account.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IOAuth2Token.AccessToken">
+            <summary>
+            The secret key used to access the user's data. 
+            It can be thought of the user's password and username combined into one, and is used to access the user's account. It expires after 1 month.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IOAuth2Token.ExpiresIn">
+            <summary>
+            The lifetime of the token in seconds.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IOAuth2Token.TokenType">
+            <summary>
+            The kind of token that is being returned.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IOAuth2Token.RefreshToken">
+            <summary>
+            Used to generate an Access Token.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IOAuth2Token.AccountId">
+            <summary>
+            The account id.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.IOAuth2Token.AccountUsername">
+            <summary>
+            The account's username.
+            </summary>
+        </member>
+        <member name="T:Imgur.API.Models.OAuth2Token">
+            <summary>
+            An OAuth2 Token used for actions against a user's account.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.OAuth2Token.AccessToken">
+            <summary>
+            The secret key used to access the user's data. 
+            It can be thought of the user's password and username combined into one, and is used to access the user's account. It expires after 1 month.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.OAuth2Token.ExpiresIn">
+            <summary>
+            The lifetime of the token in seconds.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.OAuth2Token.TokenType">
+            <summary>
+            The kind of token that is being returned.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.OAuth2Token.RefreshToken">
+            <summary>
+            Used to generate an Access Token.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.OAuth2Token.AccountId">
+            <summary>
+            The account id.
+            </summary>
+        </member>
+        <member name="P:Imgur.API.Models.OAuth2Token.AccountUsername">
+            <summary>
+            The account's username.
+            </summary>
+        </member>
+    </members>
+</doc>
