@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Imgur.API.Authentication;
@@ -21,11 +22,18 @@ namespace post_call.Classes
 			var apiClient	= new ApiClient(clientId);
 			var httpClient	= new HttpClient();
 			
+			Console.WriteLine("Loading screenshot...");
 			using var fileStream = File.OpenRead(_filename);
-
+			Console.WriteLine("Loaded screenshot");
+			
+			Console.WriteLine("Uploading to Imgur...");
 			var imageEndpoint	= new ImageEndpoint(apiClient, httpClient);
 			var imageUpload		= await imageEndpoint.UploadImageAsync(fileStream);
-
+			var imageLink = imageUpload.Link;
+			
+			Console.WriteLine("Uploaded to Imgur");
+			Console.WriteLine($"URL: {imageLink}");
+			
 			return imageUpload.Link;
 		}
 	}

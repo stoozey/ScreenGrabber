@@ -112,7 +112,7 @@ namespace post_call
 
 		private static async Task UploadToWeb(string _filename)
 		{
-			Console.WriteLine("Trying to upload to Imgur...");
+			Console.WriteLine("Trying to send to Imgur...");
 
 			var imageUrl = await imgurHandler.UploadToImgur(_filename);
 			Process.Start(imageUrl);
