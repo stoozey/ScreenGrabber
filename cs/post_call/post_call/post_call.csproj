@@ -41,6 +41,10 @@
       <HintPath>..\packages\Config.Net.4.15.0\lib\netstandard2.0\Config.Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Config.Net.Json, Version=4.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Config.Net.Json.4.15.0\lib\netstandard2.0\Config.Net.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Imgur.API, Version=5.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\Imgur.API.5.0.0\lib\netstandard2.0\Imgur.API.dll</HintPath>
       <Private>True</Private>
@@ -51,8 +55,8 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="mscorlib" />
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />

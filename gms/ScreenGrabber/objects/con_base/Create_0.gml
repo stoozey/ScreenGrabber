@@ -1,4 +1,4 @@
-var _debugSettings = true;
+var _debugSettings = false;
 
 var _hasParam = ((_debugSettings) ? 2 : parameter_count());
 if (_hasParam == 2)

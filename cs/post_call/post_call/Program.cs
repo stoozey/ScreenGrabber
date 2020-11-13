@@ -133,10 +133,12 @@ namespace post_call
 		
 		private static void InitValues(string _filename)
 		{
+		    var configDir = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\stoozey_\ScreenGrabber\screengrabber_config.cfg";
+		    Console.WriteLine($"Loading config from: {configDir}");
 			config = new ConfigurationBuilder<IConfig>()
-				.UseIniFile($@"{Directory.GetCurrentDirectory()}\post_call_config.ini")
+				.UseJsonFile(configDir)
 				.Build();
-			
+
 			imgurHandler = new ImgurHandler(config.ImgurClientId);
 
 			commands = new Dictionary<string, Task>()

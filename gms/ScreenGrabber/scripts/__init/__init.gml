@@ -1,6 +1,12 @@
 globalvar config;
 config =
 {
+	api_imgur_client_id: "d85a6a5256c0c17",
+	
+	use_american_dates: false,
+	open_explorer_after_save: true,
+	show_file_save_dialog: true,
+	
 	after_screenshot:
 	{
 		skip_dialog_menu:	DialogAction.Null, // if this is set to an action, it will auto-perform it without using the dialog menu

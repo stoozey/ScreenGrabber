@@ -8,7 +8,13 @@ enum DialogAction
 	Null,
 }
 
-#macro POST_CALL_PREFIX ("\"post_call.exe\" \"" + DIR_TEMP_SREENSHOT + "\" ")
+#macro POST_CALL_PREFIX_DEBUG	("cmd /c start powershell -noexit -command \".\\post_call.exe\" \"" + DIR_TEMP_SREENSHOT + "\" ") // DEBUG SHOW CONSOLE
+#macro POST_CALL_PREFIX_RELEASE	("\"post_call.exe\" \"" + DIR_TEMP_SREENSHOT + "\" ")
+
+function GetPostCallPrefix()
+{
+	return ((config.debug) ? POST_CALL_PREFIX_DEBUG : POST_CALL_PREFIX_RELEASE);
+}
 
 #macro CMD_COPY_TO_CLIPBOARD	"copy_to_clipboard"
 #macro CMD_SAVE_TO_FILE			"save_to_file"
@@ -19,7 +25,7 @@ dialogActions = array_create(DialogAction.Null, function() {});
 
 function PostCall()
 {
-	var _string = POST_CALL_PREFIX;
+	var _string = GetPostCallPrefix();
 	for (var i = 0; i < argument_count; i++)
 	{
 		_string += argument[i];

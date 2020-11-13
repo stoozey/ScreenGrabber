@@ -1,4 +1,4 @@
-#macro FILE_POST_CALL_CONFIG (program_directory + "post_call_config.ini")
+#macro FILE_POST_CALL_CONFIG (DIR_PROGRAM_DIRECOTRY + "post_call_config.ini")
 
 function GetIni(_key, _default)
 {
@@ -78,36 +78,36 @@ function UiCheckboxShowDialogOptionsClicked(_ui)
 
 function UiCheckboxShowSaveAsDialogInit(_ui)
 {
-	toggle = GetIni("show_file_save_dialog", true);
+	toggle = config.show_file_save_dialog;
 }
 
 function UiCheckboxShowSaveAsDialogClicked(_ui)
 {
 	UiCheckboxClicked(_ui);
 	
-	WriteIni("show_file_save_dialog", _ui.toggle);
+	config.show_file_save_dialog = _ui.toggle;
 }
 
 function UiCheckboxOpenFileAFterSaveInit(_ui)
 {
-	toggle = GetIni("open_explorer_after_save", true);
+	toggle = config.open_explorer_after_save;
 }
 
 function UiCheckboxOpenFileAFterSaveClicked(_ui)
 {
 	UiCheckboxClicked(_ui);
 	
-	WriteIni("open_explorer_after_save", _ui.toggle);
+	config.open_explorer_after_save = _ui.toggle;
 }
 
 function UiCheckboxUseAmericanDatesInit(_ui)
 {
-	toggle = GetIni("use_american_dates", true);
+	toggle = config.use_american_dates;
 }
 
 function UiCheckboxUseAmericanDatesClicked(_ui)
 {
 	UiCheckboxClicked(_ui);
 	
-	WriteIni("use_american_dates", _ui.toggle);
+	config.use_american_dates = _ui.toggle;
 }
