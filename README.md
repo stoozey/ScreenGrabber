@@ -3,3 +3,5 @@
 
 ## [__For a release, click here to nagivate to the Itch.io page!!__](https://duckduckgo.com)
 ### A lightweight screenshot-capturing tool ( with pretty ui c: )
+
+#### The option to "upload to web" is not functioning due to GMS limitations. 
