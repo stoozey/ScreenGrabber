@@ -34,7 +34,7 @@ if (keyboard_check_pressed(ord("3"))) {
 if (cap_avail) {
 	if (!surface_exists(cap_surf)) {
 		cap_surf = surface_create(cap_width, cap_height);
-		buffer_set_surface(cap_buf, cap_surf, 0, 0, 0);
+		buffer_set_surface(cap_buf, cap_surf, 0);
 	}
 	gpu_set_tex_filter(true);
 	draw_surface_ext(cap_surf, 0,0, 0.5,0.5, 0, -1,1);

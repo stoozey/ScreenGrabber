@@ -26,7 +26,7 @@ Draw = function()
 	if (!surface_exists(screenSurface))
 	{
 		screenSurface = surface_create(screenWidth, screenHeight);
-		buffer_set_surface(screenBuffer, screenSurface, 0, 0, 0);
+		buffer_set_surface(screenBuffer, screenSurface, 0);
 	}
 
 	var _colour = merge_color(c_white, $560005, screenFade);
