@@ -31,9 +31,8 @@ namespace post_call.Classes
 			var imageUpload		= await imageEndpoint.UploadImageAsync(fileStream);
 			var imageLink = imageUpload.Link;
 			
-			Console.WriteLine("Uploaded to Imgur");
-			Console.WriteLine($"URL: {imageLink}");
-			
+			Console.WriteLine($"Uploaded to Imgur: {imageLink}");
+
 			return imageUpload.Link;
 		}
 	}
